@@ -15,6 +15,7 @@
     "allowSyntheticDefaultImports": false,
     "allowJs": true,
     "removeComments": true,
+    "resolveJsonModule": true,
     "rootDir": "./src",
     "outDir": "./build"
   },
