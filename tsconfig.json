@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2017",
     "module": "commonjs",
     "sourceMap": true,
     "moduleResolution": "node",
@@ -13,6 +13,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": false,
+    "rootDir": "./src",
+    "outDir": "./build"
   },
   "exclude": [
     "node_modules"
