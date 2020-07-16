@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    "jest": true
+  },
   plugins: ['@typescript-eslint'],
   extends: [
     'plugin:@typescript-eslint/recommended',
