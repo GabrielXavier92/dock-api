@@ -1,0 +1,22 @@
+{
+  "name": "dock-api",
+  "version": "1.0.0",
+  "description": "Dock api for job test ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielXavier92/dock-api.git"
+  },
+  "author": "Gabriel Xavier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GabrielXavier92/dock-api/issues"
+  },
+  "homepage": "https://github.com/GabrielXavier92/dock-api#readme",
+  "dependencies": {
+    "typescript": "^3.9.6"
+  }
+}
