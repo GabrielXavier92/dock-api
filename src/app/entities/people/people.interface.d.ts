@@ -18,7 +18,7 @@ export interface PeopleService {
 }
 
 export interface InterfacePeopleController {
-  createPeopple: (req: Request, res: Response) => void;
+  createPeopple: (req: Request, res: Response) => Promise<void>;
 }
 
 export interface InterfacePeopleService {
@@ -26,5 +26,5 @@ export interface InterfacePeopleService {
 }
 
 export interface InterfacePeopleModel {
-  create: (people: PeopleInput) => People;
+  create: (people: PeopleInput) => Promise<People>;
 }
