@@ -1,5 +1,7 @@
 import { mockRequest, mockResponse } from '../../utils/expressMock';
 import PeopleController from '../../../app/entities/people/controller/peopleController';
+import PeopleService from '../../../app/entities/people/service/peopleService';
+
 import { InterfacePeopleController } from '../../../app/entities/people/people.interface';
 
 jest.mock('../../../app/entities/people/service/peopleService');
@@ -56,6 +58,22 @@ describe('AccountController', () => {
       await peopleController.createPeopple(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledTimes(1);
+    });
+
+    test('Should return 400 when throw some error', async () => {
+      const { peopleController } = maker();
+      const people = {
+        name: 'Gabriel Xavier',
+        cpf: '1140123012310',
+        birthDate: '1992-04-12',
+      };
+      req.body = people;
+
+      jest.spyOn(PeopleService, 'createPeople').mockRejectedValue({ message: 'Internal Error' });
+
+      await peopleController.createPeopple(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenLastCalledWith({ msg: 'Internal Error' });
     });
   });
 });
