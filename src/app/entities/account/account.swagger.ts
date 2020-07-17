@@ -1,0 +1,30 @@
+const account = {
+  '/account': {
+    // post: createPeopleController,
+  },
+  definitions: {
+    Account: {
+      properties: {
+        idAccount: { type: 'number', example: 12345 },
+        idPeople: { type: 'number', example: 5678 },
+        balance: { type: 'number', example: 15.0 },
+        dailyWithdrawalLimit: { type: 'number', example: 100.0 },
+        active: { type: 'boolean', example: true },
+        accountType: { type: 'number', example: 1 },
+        createdAt: { type: 'string', example: '1992-04-12' },
+      },
+    },
+    AccountInput: {
+      properties: {
+        idPeople: { type: 'number', example: 5678 },
+        balance: { type: 'number', example: 15.0 },
+        dailyWithdrawalLimit: { type: 'number', example: 100.0 },
+        active: { type: 'boolean', example: true },
+        accountType: { type: 'number', example: 1 },
+        createdAt: { type: 'string', example: '1992-04-12' },
+      },
+    },
+  },
+};
+
+export default account;

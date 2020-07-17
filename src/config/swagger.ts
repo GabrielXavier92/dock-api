@@ -1,3 +1,4 @@
+import account from '../app/entities/account/account.swagger';
 import people from '../app/entities/people/people.swagger';
 
 const swagger = {
@@ -19,6 +20,7 @@ const swagger = {
   ],
   paths: {
     ...people,
+    ...account,
   },
 };
 
