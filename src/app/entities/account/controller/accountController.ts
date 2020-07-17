@@ -8,8 +8,9 @@ class AccountController implements InterfaceAccountController {
       idPeople, balance, dailyWithdrawalLimit, active, accountType,
     } = req.body as AccountInput;
 
-    if (!idPeople || !balance || !dailyWithdrawalLimit || !active || !accountType) res.status(400).json({ msg: 'Invalid Input' });
     try {
+      if (!idPeople || !balance || !dailyWithdrawalLimit || !active || !accountType) throw new Error('Invalid Input');
+
       const account = await AccountService.createAccount({
         idPeople, balance, dailyWithdrawalLimit, active, accountType,
       });
