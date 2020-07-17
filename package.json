@@ -9,8 +9,9 @@
     "test": "jest --watch --no-cache",
     "test:ci": "jest --coverage --noStackTrace --silent",
     "test:coverage": "jest --coverage --noStackTrace --silent",
-    "database-migrations": "npx knex migrate:up",
-    "database-seed": "npx knex seed:run"
+    "database-migrations": "npx knex migrate:latest",
+    "database-seed": "npx knex seed:run",
+    "database": "npm run database-migrations && npm run database-seed"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "express": "4.16.4",
     "husky": "^4.2.5",
     "knex": "^0.21.2",
+    "objection": "^2.2.1",
     "pg": "^8.3.0",
     "swagger-ui-express": "^4.1.4",
     "typescript": "^3.9.6"
