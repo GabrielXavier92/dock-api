@@ -7,7 +7,7 @@ class PeopleModel implements InterfacePeopleModel {
     const db = await connection.raw(`
       INSERT INTO people (name, cpf, birthDate)
       VALUES(?, ?, ?)
-      RETURNING 0
+      RETURNING *;
     `, [`${name}`, `${cpf}`, `${birthDate}`]);
     return db.rows[0] as People;
   }
