@@ -14,5 +14,6 @@ module.exports = {
     "import/extensions": 0,
     "max-len": [2, 130, 4, { "ignoreUrls": true }],
     "class-methods-use-this": 0,
+    "@typescript-eslint/no-throw-literal": 0
   }
 };
