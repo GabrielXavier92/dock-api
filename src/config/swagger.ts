@@ -1,7 +1,7 @@
-import account from '../app/entities/account/account.swagger';
+import people from '../app/entities/people/people.swagger';
 
 const swagger = {
-  openapi: '3.0.1',
+  swagger: '2.0',
   info: {
     version: '1.0.0',
     title: 'Dock api',
@@ -13,12 +13,12 @@ const swagger = {
   },
   servers: [
     {
-      url: 'http://localhost:3001/api/v1',
+      url: 'http://localhost:3001/api',
       description: 'Local server',
     },
   ],
   paths: {
-    ...account,
+    ...people,
   },
 };
 

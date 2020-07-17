@@ -1,7 +1,10 @@
-import application from './app';
+import App from './app';
 
 const startSever = (): void => {
-  application();
+  App.app.listen(3001, (err) => {
+    if (err) throw (err);
+    console.log('app is running');
+  });
 };
 
 startSever();

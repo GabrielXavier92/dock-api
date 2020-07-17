@@ -3,24 +3,32 @@ import * as cors from 'cors';
 import * as bodyparser from 'body-parser';
 import * as swagger from 'swagger-ui-express';
 
+import peopleRoutes from './entities/people/routes'
 import loggerMiddleware from '../utils/loggerMiddleware';
-
 import swaggerConfig from '../config/swagger';
 
-const application = (): void => {
-  const app = express();
-  app.use(cors());
-  app.use(bodyparser.json());
+class App {
+  public app: express.Application;
 
-  // loggerMiddleware
-  app.use(loggerMiddleware);
+  public constructor() {
+    this.app = express();
+    this.applyMiddlewares();
+    this.createRoutes()
+  }
 
-  app.use('/swagger', swagger.serve, swagger.setup(swaggerConfig));
+  private applyMiddlewares(): void {
+    this.app.use(cors());
+    this.app.use(bodyparser.json());
 
-  app.listen(3001, (err) => {
-    if (err) throw (err);
-    console.log('app is running');
-  });
-};
+    this.app.use(loggerMiddleware);
+  }
 
-export default application;
+  private createRoutes(): void {
+    this.app.use('/swagger', swagger.serve);
+    this.app.get('/swagger', swagger.setup(swaggerConfig));
+
+    this.app.use(peopleRoutes())
+  }
+}
+
+export default new App()
