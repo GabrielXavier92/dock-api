@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "sucrase ./src -d ./build --transforms typescript,imports",
-    "test": "jest --watch --no-cache"
+    "test": "jest --watch --no-cache",
+    "database-migrations": "npx knex migrate:up",
+    "database-seed": "npx knex seed:run"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "dotenv": "^8.2.0",
     "express": "4.16.4",
     "knex": "^0.21.2",
+    "pg": "^8.3.0",
     "swagger-ui-express": "^4.1.4",
     "typescript": "^3.9.6"
   },
