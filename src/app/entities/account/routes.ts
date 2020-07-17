@@ -1,13 +1,17 @@
 import { Router } from 'express';
 
-import PeopleController from './controller/peopleController';
+import AccountController from './controller/AccountController';
 
 const routes = Router();
 
 const accountRoutes = (): Router => {
   const base = '/account';
 
-  routes.post(base, PeopleController.createPeopple);
+  // TODO GET /account busca conta  RETORNA CONTA
+
+  // TODO POST /account/idAccont/block bloqueia conta  RETORNA CONTA
+
+  routes.post(base, AccountController.createAccount);
 
   return routes;
 };
