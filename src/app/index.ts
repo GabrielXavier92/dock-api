@@ -3,7 +3,9 @@ import * as cors from 'cors';
 import * as bodyparser from 'body-parser';
 import * as swagger from 'swagger-ui-express';
 
-import peopleRoutes from './entities/people/routes'
+import peopleRoutes from './entities/people/routes';
+import accountRoutes from './entities/account/routes';
+
 import loggerMiddleware from '../utils/loggerMiddleware';
 import swaggerConfig from '../config/swagger';
 
@@ -13,7 +15,7 @@ class App {
   public constructor() {
     this.app = express();
     this.applyMiddlewares();
-    this.createRoutes()
+    this.createRoutes();
   }
 
   private applyMiddlewares(): void {
@@ -27,8 +29,9 @@ class App {
     this.app.use('/swagger', swagger.serve);
     this.app.get('/swagger', swagger.setup(swaggerConfig));
 
-    this.app.use(peopleRoutes())
+    this.app.use(peopleRoutes());
+    this.app.use(accountRoutes());
   }
 }
 
-export default new App()
+export default new App();
