@@ -13,7 +13,7 @@ const swagger = {
   },
   servers: [
     {
-      url: 'http://localhost:3001/api',
+      url: `${process.env.APP_URL}:${process.env.APP_PORT}/api`,
       description: 'Local server',
     },
   ],
