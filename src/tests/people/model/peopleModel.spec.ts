@@ -16,23 +16,24 @@ const maker = (): maker => {
   return { peopleModel, conn };
 };
 
-describe('create', () => {
+describe('peopleModel', () => {
   beforeEach(() => {
     jest.resetModules();
   });
 
-  test('Should return create people', async () => {
-    const { conn, peopleModel } = maker();
-    const people = {
-      name: 'Gabriel Xavier',
-      birthDate: '1992-04-12',
-      cpf: '123213',
-    };
+  describe('create', () => {
+    test('Should return create people', async () => {
+      const { conn, peopleModel } = maker();
+      const people = {
+        name: 'Gabriel Xavier',
+        birthDate: '1992-04-12',
+        cpf: '123213',
+      };
 
-    const raw = jest.spyOn(conn, 'raw').mockResolvedValue({ rows: [{ ...people }] });
-
-    await peopleModel.create(people);
-
-    expect(raw).toBeCalledTimes(1);
+      const raw = jest.spyOn(conn, 'raw').mockResolvedValue({ rows: [{ idPeople: 1, ...people }] });
+      const createdPeople = await peopleModel.create(people);
+      expect(raw).toBeCalledTimes(1);
+      expect(createdPeople).toEqual({ idPeople: 1, ...people });
+    });
   });
 });
