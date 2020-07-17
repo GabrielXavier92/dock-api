@@ -13,10 +13,6 @@ export interface PeopleInput {
   birthDate: string;
 }
 
-export interface PeopleService {
-  create: (people: PeopleInput) => People;
-}
-
 export interface InterfacePeopleController {
   createPeopple: (req: Request, res: Response) => Promise<void>;
 }
