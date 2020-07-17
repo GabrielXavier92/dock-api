@@ -22,7 +22,7 @@ describe('peopleModel', () => {
   });
 
   describe('create', () => {
-    test('Should return create people', async () => {
+    test('Should return created people', async () => {
       const { conn, peopleModel } = maker();
       const people = {
         name: 'Gabriel Xavier',
