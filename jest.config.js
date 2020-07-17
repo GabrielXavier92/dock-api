@@ -5,4 +5,7 @@ module.exports = {
   testEnvironment: "node",
   rootDir: './src',
   coverageDirectory: '../coverage',
+  coverageThreshold: {
+    global: 90
+  }
 };
