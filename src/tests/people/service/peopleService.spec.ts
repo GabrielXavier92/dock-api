@@ -28,7 +28,8 @@ describe('createPeople', () => {
       birthDate: '1992-04-1',
       cpf: '123213',
     };
-    await expect(peopleService.createPeople(people)).rejects.toEqual('Invalid Input');
+    await expect(peopleService.createPeople(people)).rejects.toThrow();
+    await expect(peopleService.createPeople(people)).rejects.toThrowError('Invalid Input');
   });
 
   test('Should return people if date is valid', async () => {
