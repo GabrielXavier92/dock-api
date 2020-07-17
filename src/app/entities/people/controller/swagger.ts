@@ -8,7 +8,7 @@ const createPeople = {
       required: true,
       in: 'body',
       schema: {
-        $ref: '#/paths/definitions/PeopleInput',
+        $ref: '#/paths/peopleDefinitions/PeopleInput',
       },
     },
   ],
@@ -16,7 +16,7 @@ const createPeople = {
     200: {
       description: 'Success',
       schema: {
-        $ref: '#/paths/definitions/People',
+        $ref: '#/paths/peopleDefinitions/People',
       },
     },
     400: {

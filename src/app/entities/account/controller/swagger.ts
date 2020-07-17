@@ -8,7 +8,7 @@ const createAccount = {
       required: true,
       in: 'body',
       schema: {
-        $ref: '#/paths/definitions/AccountInput',
+        $ref: '#/paths/accountDefinitions/AccountInput',
       },
     },
   ],
@@ -16,7 +16,7 @@ const createAccount = {
     200: {
       description: 'Success',
       schema: {
-        $ref: '#/paths/definitions/Account',
+        $ref: '#/paths/accountDefinitions/Account',
       },
     },
     400: {

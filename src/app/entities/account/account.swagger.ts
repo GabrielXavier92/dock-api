@@ -4,7 +4,7 @@ const account = {
   '/account': {
     post: createAccount,
   },
-  definitions: {
+  accountDefinitions: {
     Account: {
       properties: {
         idAccount: { type: 'number', example: 12345 },

@@ -4,7 +4,7 @@ const people = {
   '/people': {
     post: createPeopleController,
   },
-  definitions: {
+  peopleDefinitions: {
     People: {
       properties: {
         idPeople: { type: 'number', example: 12345 },
