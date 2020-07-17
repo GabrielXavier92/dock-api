@@ -8,7 +8,7 @@ const createPeople = {
       required: true,
       in: 'body',
       schema: {
-        $ref: '#/paths/definitions/People',
+        $ref: '#/paths/definitions/PeopleInput',
       },
     },
   ],
