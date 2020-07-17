@@ -11,7 +11,7 @@ class PeopleController implements InterfacePeopleController {
       const people = await PeopleService.createPeople({ name, cpf, birthDate });
       res.status(200).json(people);
     } catch (e) {
-      res.status(400).json({ msg: e });
+      res.status(400).json({ msg: e.message });
     }
   }
 }
