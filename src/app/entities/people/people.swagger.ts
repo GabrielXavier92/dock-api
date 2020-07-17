@@ -7,7 +7,7 @@ const people = {
   definitions: {
     People: {
       properties: {
-        id: { type: 'string', example: '12345' },
+        idPeople: { type: 'string', example: '12345' },
         name: { type: 'string', example: 'Gabriel Xavier' },
         cpf: { type: 'string', example: '1140123012310' },
         birthDate: { type: 'string', example: '1992-04-12' },
