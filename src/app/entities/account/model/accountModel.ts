@@ -8,14 +8,17 @@ class AccountModel implements InterfaceAccountModel {
       idPeople, balance, dailyWithdrawalLimit, active, accountType, createdAt,
     } = account;
 
-    const db = await connection.raw(`
-      INSERT INTO account(idPeople, balance, dailyWithdrawalLimit, active, accountType, createdAt)
-      VALUES(?, ?, ?, ?, ?, ?)
-      RETURNING *;
-    `, [`${idPeople}`, `${balance}`, `${dailyWithdrawalLimit}`, `${active}`, `${accountType}`, `${createdAt}`]);
+    try {
+      const db = await connection.raw(`
+        INSERT INTO account("idPeople", balance, "dailyWithdrawalLimit", active, "accountType", "createdAt")
+        VALUES(?, ?, ?, ?, ?, ?)
+        RETURNING *;
+      `, [`${idPeople}`, `${balance}`, `${dailyWithdrawalLimit}`, `${active}`, `${accountType}`, `${createdAt}`]);
 
-    console.log(db.rows);
-    return db.rows[0] as Account;
+      return db.rows[0] as Account;
+    } catch (e) {
+      throw new Error('Internal Erro');
+    }
   }
 }
 
