@@ -8,6 +8,7 @@
     "build": "sucrase ./src -d ./build --transforms typescript,imports",
     "test": "jest --watch --no-cache",
     "test:ci": "jest --coverage --noStackTrace --silent",
+    "test:coverage": "jest --coverage --noStackTrace --silent",
     "database-migrations": "npx knex migrate:up",
     "database-seed": "npx knex seed:run"
   },
