@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 export interface People {
-  id: number;
+  idPeople: number;
   name: string;
   cpf: string;
   birthDate: string;
