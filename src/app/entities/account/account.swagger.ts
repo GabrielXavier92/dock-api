@@ -1,6 +1,8 @@
+import createAccount from './controller/swagger';
+
 const account = {
   '/account': {
-    // post: createPeopleController,
+    post: createAccount,
   },
   definitions: {
     Account: {
