@@ -5,8 +5,6 @@ import AccountService from '../../../app/entities/account/service/accountService
 
 import { InterfaceAccountController } from '../../../app/entities/account/account.interface';
 
-// jest.mock('../../../app/entities/account/service/accountService');
-
 type maker = {
   accountController: InterfaceAccountController;
 };
