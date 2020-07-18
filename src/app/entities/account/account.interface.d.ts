@@ -18,9 +18,6 @@ export interface AccountInput {
   accountType: number;
 }
 
-export interface AccountModelInput extends AccountInput {
-  createdAt: string;
-}
 export interface InterfaceAccountController {
   createAccount: (req: Request, res: Response) => Promise<void>;
   blockAccount: (req: Request, res: Response) => Promise<void>;
