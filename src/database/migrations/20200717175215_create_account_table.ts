@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     "dailyWithdrawalLimit"  NUMERIC NOT NULL,
     active BOOLEAN NOT NULL,
     "accountType" INTEGER NOT NULL,
-    "createdAt" NOT NULL DEFAULT CURRENT_DATE,
+    "createdAt" DATE NOT NULL DEFAULT CURRENT_DATE,
     
     FOREIGN KEY ("idPeople") REFERENCES people("idPeople")
     );

@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     "idTransaction" SERIAL PRIMARY KEY,
     "idAccount" INT NOT NULL,
     value NUMERIC NOT NULL,
-    "createdAt" NOT NULL DEFAULT CURRENT_DATE,
+    "createdAt" DATE NOT NULL DEFAULT CURRENT_DATE,
     
     FOREIGN KEY ("idAccount") REFERENCES account("idAccount")
     );
