@@ -47,6 +47,19 @@ describe('AccountController', () => {
       expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
     });
 
+    test('Should throw new error if type of variables is incorrect', () => {
+      const { peopleController } = maker();
+      const people = {
+        name: 123,
+        cpf: 1234,
+        birthDate: new Date(),
+      };
+      req.body = people;
+      peopleController.createPeopple(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+    });
+
     test('Should return success when create people', async () => {
       const { peopleController } = maker();
       const people = {

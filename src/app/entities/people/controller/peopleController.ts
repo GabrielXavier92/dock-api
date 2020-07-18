@@ -4,10 +4,11 @@ import PeopleService from '../service/peopleService';
 
 class PeopleController implements InterfacePeopleController {
   public async createPeopple(req: express.Request, res: express.Response): Promise<void> {
-    const { name, cpf, birthDate } = req.body as PeopleInput;
-
     try {
+      const { name, cpf, birthDate } = req.body as PeopleInput;
+
       if (!name || !cpf || !birthDate) throw new Error('Invalid Input');
+      if (typeof name !== 'string' || typeof cpf !== 'string' || typeof birthDate !== 'string') throw new Error('Invalid Input');
 
       const people = await PeopleService.createPeople({ name, cpf, birthDate });
       res.status(200).json(people);
