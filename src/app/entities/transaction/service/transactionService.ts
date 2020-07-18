@@ -1,7 +1,7 @@
 import { InterfaceTransactionService, TransactionInput, Transaction } from '../transaction.interface';
 import accountService from '../../account/service/accountService';
 import transactionModel from '../model/transactionModel';
-import { AccountModelInput } from '../../account/account.interface';
+import { AccountInput } from '../../account/account.interface';
 import checkDecimal from '../../../../utils/checkDecimal';
 
 class TransactionService implements InterfaceTransactionService {
@@ -16,7 +16,7 @@ class TransactionService implements InterfaceTransactionService {
 
     const newTransaction = await transactionModel.create(transaction);
 
-    const newAccount: AccountModelInput = {
+    const newAccount: AccountInput = {
       ...account,
       balance: Number(account.balance) + Number(newTransaction.value),
     };
@@ -38,7 +38,7 @@ class TransactionService implements InterfaceTransactionService {
 
     const newTransaction = await transactionModel.create(transaction);
 
-    const newAccount: AccountModelInput = {
+    const newAccount: AccountInput = {
       ...account,
       balance: Number(account.balance) + Number(newTransaction.value),
     };
