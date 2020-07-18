@@ -16,7 +16,9 @@ class PeopleService implements InterfacePeopleService {
   }
 
   public async findOnePeople(id: number): Promise<People> {
-    return PeopleModel.findById(id);
+    const people = await PeopleModel.findById(id);
+    if (!people) throw new Error('Not Found');
+    return people;
   }
 }
 
