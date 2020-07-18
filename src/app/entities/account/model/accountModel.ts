@@ -17,7 +17,7 @@ class AccountModel implements InterfaceAccountModel {
 
       return db.rows[0] as Account;
     } catch (e) {
-      throw new Error('Internal Erro');
+      throw new Error('Internal Error');
     }
   }
 }
