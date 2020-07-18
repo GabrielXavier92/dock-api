@@ -11,7 +11,7 @@ class AccountModel implements InterfaceAccountModel {
     try {
       const db = await connection.raw(`
         INSERT INTO account("idPeople", balance, "dailyWithdrawalLimit", active, "accountType")
-        VALUES(?, ?, ?, ?, ?, ?)
+        VALUES(?, ?, ?, ?, ?)
         RETURNING *;
       `, [`${idPeople}`, `${balance}`, `${dailyWithdrawalLimit}`, `${active}`, `${accountType}`]);
 
