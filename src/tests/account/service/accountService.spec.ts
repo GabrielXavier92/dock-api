@@ -3,6 +3,7 @@ import AccountModel from '../../../app/entities/account/model/accountModel';
 
 import { InterfaceAccountService } from '../../../app/entities/account/account.interface.d';
 
+jest.mock('../../../app/entities/account/model/accountModel');
 type maker = {
   accountService: InterfaceAccountService;
 };
@@ -16,8 +17,8 @@ describe('accountService', () => {
     jest.resetModules();
   });
 
-  describe('createPeople', () => {
-    test('Should throw new error if date is invalid', async () => {
+  describe('createAccount', () => {
+    test('Should create account', async () => {
       const { accountService } = maker();
       const account = {
         idPeople: 123,
@@ -40,5 +41,36 @@ describe('accountService', () => {
       expect(AccountModel.create).toBeCalledTimes(1);
       expect(service).toBe(createdAccount);
     });
+  });
+
+  describe('blockAccount', () => {
+    test('Should throw error case not found idAccount', async () => {
+      const { accountService } = maker();
+      jest.spyOn(AccountModel, 'findById').mockResolvedValue(undefined);
+
+      await expect(accountService.blockAccount(1)).rejects.toThrow();
+      await expect(accountService.blockAccount(1)).rejects.toThrowError('Not Found');
+    });
+  });
+
+  test('Should block an account', async () => {
+    const { accountService } = maker();
+    const account = {
+      idAccount: 1,
+      idPeople: 123,
+      balance: 50,
+      dailyWithdrawalLimit: 150,
+      active: true,
+      accountType: 1,
+      createdAt: '1992-04-12',
+    };
+    jest.spyOn(AccountModel, 'findById').mockResolvedValue(account);
+    jest.spyOn(AccountModel, 'updateById').mockResolvedValue({ ...account, active: false });
+
+    const blockAccount = await accountService.blockAccount(1);
+
+    expect(AccountModel.findById).toBeCalledTimes(1);
+    expect(AccountModel.updateById).toBeCalledTimes(1);
+    expect(blockAccount).toMatchObject({ ...account, active: false });
   });
 });

@@ -17,10 +17,19 @@ class AccountService implements InterfaceAccountService {
       createdAt,
     };
 
-    const createdAccount = await AccountModel.create(account);
-    return new Promise((resolve) => {
-      resolve(createdAccount);
-    });
+    return AccountModel.create(account);
+  }
+
+  public async blockAccount(idAccount: number): Promise<Account> {
+    const account = await AccountModel.findById(idAccount);
+    if (!account) throw new Error('Not Found');
+
+    const block: AccountModelInput = {
+      ...account,
+      active: false,
+    };
+
+    return AccountModel.updateById(idAccount, block);
   }
 }
 
