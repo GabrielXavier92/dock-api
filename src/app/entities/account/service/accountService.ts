@@ -1,6 +1,6 @@
 import AccountModel from '../model/accountModel';
 import {
-  InterfaceAccountService, AccountInput, Account, AccountModelInput,
+  InterfaceAccountService, AccountInput, Account,
 } from '../account.interface.d';
 import checkDecimal from '../../../../utils/checkDecimal';
 
@@ -10,24 +10,16 @@ class AccountService implements InterfaceAccountService {
   }: AccountInput): Promise<Account> {
     if (!checkDecimal(balance)) throw new Error('Invalid balance value');
     if (!checkDecimal(dailyWithdrawalLimit)) throw new Error('Invalid daily withdraw limit value');
-    const createdAt = new Date().toISOString().slice(0, 10);
-    const account: AccountModelInput = {
-      idPeople,
-      balance,
-      dailyWithdrawalLimit,
-      active,
-      accountType,
-      createdAt,
-    };
-
-    return AccountModel.create(account);
+    return AccountModel.create({
+      idPeople, balance, dailyWithdrawalLimit, active, accountType,
+    });
   }
 
   public async blockAccount(idAccount: number): Promise<Account> {
     const account = await AccountModel.findById(idAccount);
     if (!account) throw new Error('Not Found');
 
-    const block: AccountModelInput = {
+    const block: AccountInput = {
       ...account,
       active: false,
     };
@@ -41,7 +33,7 @@ class AccountService implements InterfaceAccountService {
     return account;
   }
 
-  public async updateAccountById(idAccount: number, account: AccountModelInput): Promise<Account> {
+  public async updateAccountById(idAccount: number, account: AccountInput): Promise<Account> {
     await this.getAccount(idAccount);
     return AccountModel.updateById(idAccount, account);
   }
