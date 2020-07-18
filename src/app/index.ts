@@ -5,6 +5,7 @@ import * as swagger from 'swagger-ui-express';
 
 import peopleRoutes from './entities/people/routes';
 import accountRoutes from './entities/account/routes';
+import transactionRoutes from './entities/transaction/routes';
 
 import loggerMiddleware from '../utils/loggerMiddleware';
 import swaggerConfig from '../config/swagger';
@@ -31,6 +32,7 @@ class App {
 
     this.app.use(peopleRoutes());
     this.app.use(accountRoutes());
+    this.app.use(transactionRoutes());
   }
 }
 
