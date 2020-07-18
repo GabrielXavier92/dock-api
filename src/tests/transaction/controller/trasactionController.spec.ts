@@ -82,4 +82,63 @@ describe('TransactionController', () => {
       expect(res.json).toHaveBeenLastCalledWith(createdTransaction);
     });
   });
+
+  describe('withdraw', () => {
+    test('Should return 400 when idAccount is invalid', () => {
+      const { transactionController } = maker();
+
+      req.params = { idAccount: '' };
+
+      transactionController.withdraw(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+    });
+
+    test('Should return 400 when value is invalid', () => {
+      const { transactionController } = maker();
+
+      req.body = { value: undefined };
+
+      transactionController.withdraw(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+    });
+
+    test('Should return 400 if type of variables is incorrect', () => {
+      const { transactionController } = maker();
+
+      req.params = { idAccount: '2' };
+      req.body = { value: '123' };
+
+      transactionController.withdraw(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+    });
+
+    test('Should return 200 when create account', async () => {
+      const { transactionController } = maker();
+      const transaction = {
+        idAccount: 2,
+        value: 20,
+      };
+
+      req.body = { ...transaction };
+      req.params = { idAccount: '2' };
+
+      const createdTransaction = {
+        ...transaction,
+        idTransaction: 1,
+        createdAt: '1992-04-12',
+      };
+
+      jest.spyOn(TransactionService, 'withdraw').mockResolvedValue(createdTransaction);
+
+      await transactionController.withdraw(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenLastCalledWith(createdTransaction);
+    });
+  });
 });

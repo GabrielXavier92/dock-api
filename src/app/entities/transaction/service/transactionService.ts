@@ -40,7 +40,7 @@ class TransactionService implements InterfaceTransactionService {
 
     const newAccount: AccountInput = {
       ...account,
-      balance: Number(account.balance) + Number(newTransaction.value),
+      balance: Number(account.balance) - Number(newTransaction.value),
     };
 
     await accountService.updateAccountById(idAccount, newAccount);
