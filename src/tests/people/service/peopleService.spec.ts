@@ -3,6 +3,8 @@ import PeopleModel from '../../../app/entities/people/model/peopleModel';
 
 import { InterfacePeopleService } from '../../../app/entities/people/people.interface';
 
+jest.mock('../../../app/entities/people/model/peopleModel');
+
 type maker = {
   peopleService: InterfacePeopleService;
 };
@@ -51,6 +53,15 @@ describe('peopleService', () => {
   });
 
   describe('findeOnePeople', () => {
+    test('Should throw error case not found people', async () => {
+      const { peopleService } = maker();
+
+      jest.spyOn(PeopleModel, 'findById').mockResolvedValue(undefined);
+
+      await expect(peopleService.findOnePeople(1)).rejects.toThrow();
+      await expect(peopleService.findOnePeople(1)).rejects.toThrowError('Not Found');
+    });
+
     test('Should return one people', async () => {
       const { peopleService } = maker();
 
