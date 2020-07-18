@@ -8,6 +8,7 @@ const accountRoutes = (): Router => {
   const base = '/account';
 
   routes.post(`${base}/:idAccount/deposit`, TransactionController.deposit);
+  routes.post(`${base}/:idAccount/withdraw`, TransactionController.withdraw);
 
   return routes;
 };
