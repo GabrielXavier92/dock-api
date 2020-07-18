@@ -20,7 +20,7 @@ export const createPeople = {
       },
     },
     400: {
-      description: 'Success',
+      description: 'Failed',
       schema: {
         properties: {
           msg: {
@@ -52,7 +52,7 @@ export const getPeople = {
       },
     },
     400: {
-      description: 'Success',
+      description: 'Failed',
       schema: {
         properties: {
           msg: {
