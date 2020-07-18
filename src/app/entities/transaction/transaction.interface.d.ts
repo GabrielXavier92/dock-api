@@ -1,3 +1,5 @@
+import { Request, Response } from 'express';
+
 export interface Transaction {
   idTransaction: number;
   idAccount: number;
@@ -12,6 +14,10 @@ export interface TransactionInput {
 
 export interface TransactionModelInput extends TransactionInput {
   createdAt: string;
+}
+
+export interface InterfaceTransactionController {
+  deposit: (req: Request, res: Response) => Promise<void>;
 }
 
 export interface InterfaceTransactionService {
