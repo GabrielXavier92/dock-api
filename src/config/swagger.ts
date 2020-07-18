@@ -1,5 +1,6 @@
 import account from '../app/entities/account/account.swagger';
 import people from '../app/entities/people/people.swagger';
+import transaction from '../app/entities/transaction/transaction.swagger';
 
 const swagger = {
   swagger: '2.0',
@@ -21,6 +22,7 @@ const swagger = {
   paths: {
     ...people,
     ...account,
+    ...transaction,
   },
 };
 
