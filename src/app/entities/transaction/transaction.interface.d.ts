@@ -22,6 +22,6 @@ export interface InterfaceTransactionService {
 }
 
 export interface InterfaceTransactionModel {
-  create: (transaction: TransactionModelInput) => Promise<Transaction>;
+  create: (transaction: TransactionInput) => Promise<Transaction>;
   findByIdAccount: (idAccount: number) => Promise<Transaction | undefined>;
 }
