@@ -9,9 +9,8 @@ const accountRoutes = (): Router => {
 
   // TODO GET /account busca conta  RETORNA CONTA
 
-  // TODO POST /account/idAccont/block bloqueia conta  RETORNA CONTA
-
   routes.post(base, AccountController.createAccount);
+  routes.post(`${base}/:idAccount/block`, AccountController.blockAccount);
 
   return routes;
 };
