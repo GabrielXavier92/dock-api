@@ -47,6 +47,18 @@ describe('TransactionController', () => {
       expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
     });
 
+    test('Should return 400 if type of variables is incorrect', () => {
+      const { transactionController } = maker();
+
+      req.params = { idAccount: '2' };
+      req.body = { value: '123' };
+
+      transactionController.deposit(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+    });
+
     test('Should return 200 when create account', async () => {
       const { transactionController } = maker();
       const transaction = {

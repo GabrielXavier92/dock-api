@@ -8,6 +8,7 @@ class TransactionController implements InterfaceTransactionController {
     const { idAccount } = req.params;
     try {
       if (!idAccount || !value) throw new Error('Invalid Input');
+      if (typeof value !== 'number') throw new Error('Invalid Input');
 
       const transaction = await transactionService.deposit({ idAccount: Number(idAccount), value });
 
