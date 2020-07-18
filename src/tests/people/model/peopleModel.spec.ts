@@ -22,7 +22,7 @@ describe('peopleModel', () => {
   });
 
   describe('create', () => {
-    test('Shoud throw an error case create people failed', async () => {
+    test('Should throw an error case create people failed', async () => {
       const { conn, peopleModel } = maker();
       const people = {
         name: 'Gabriel Xavier',
@@ -52,7 +52,7 @@ describe('peopleModel', () => {
   });
 
   describe('findById', () => {
-    test('Shoud throw an error case findById people failed', async () => {
+    test('Should throw an error case findById people failed', async () => {
       const { conn, peopleModel } = maker();
       jest.spyOn(conn, 'raw').mockRejectedValue('Internal Error');
 

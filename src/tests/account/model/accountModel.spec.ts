@@ -24,7 +24,7 @@ describe('accountModel', () => {
   });
 
   describe('create', () => {
-    test('Shoud throw an error case create account failed', async () => {
+    test('Should throw an error case create account failed', async () => {
       const { conn, accountModel } = maker();
       const account = {
         idPeople: 123,
@@ -65,7 +65,7 @@ describe('accountModel', () => {
   });
 
   describe('update', () => {
-    test('Shoud throw an error case update account failed', async () => {
+    test('Should throw an error case update account failed', async () => {
       const { conn, accountModel } = maker();
       const account = {
         idAccount: 1,
@@ -108,7 +108,7 @@ describe('accountModel', () => {
   });
 
   describe('findById', () => {
-    test('Shoud throw an error case findById account failed', async () => {
+    test('Should throw an error case findById account failed', async () => {
       const { conn, accountModel } = maker();
       jest.spyOn(conn, 'raw').mockRejectedValue('Internal Error');
 

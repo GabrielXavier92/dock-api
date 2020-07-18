@@ -56,7 +56,7 @@ describe('transactionModel', () => {
   });
 
   describe('findByIdAccount', () => {
-    test('Shoud throw an error case findByIdAccount account failed', async () => {
+    test('Should throw an error case findByIdAccount account failed', async () => {
       const { conn, transactionModel } = maker();
       jest.spyOn(conn, 'raw').mockRejectedValue('Internal Error');
 
