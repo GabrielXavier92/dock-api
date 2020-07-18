@@ -8,6 +8,7 @@ class AccountService implements InterfaceAccountService {
   public async createAccount({
     idPeople, balance, dailyWithdrawalLimit, active, accountType,
   }: AccountInput): Promise<Account> {
+    if (balance < 0) throw new Error('Balance should be greater than 0');
     if (!checkDecimal(balance)) throw new Error('Invalid balance value');
     if (!checkDecimal(dailyWithdrawalLimit)) throw new Error('Invalid daily withdraw limit value');
     return AccountModel.create({
