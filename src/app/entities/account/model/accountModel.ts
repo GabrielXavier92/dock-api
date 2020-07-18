@@ -1,19 +1,19 @@
 import connection from '../../../../database/connection';
 
-import { InterfaceAccountModel, AccountModelInput, Account } from '../account.interface';
+import { InterfaceAccountModel, AccountInput, Account } from '../account.interface';
 
 class AccountModel implements InterfaceAccountModel {
-  public async create(account: AccountModelInput): Promise<Account> {
+  public async create(account: AccountInput): Promise<Account> {
     const {
-      idPeople, balance, dailyWithdrawalLimit, active, accountType, createdAt,
+      idPeople, balance, dailyWithdrawalLimit, active, accountType,
     } = account;
 
     try {
       const db = await connection.raw(`
-        INSERT INTO account("idPeople", balance, "dailyWithdrawalLimit", active, "accountType", "createdAt")
+        INSERT INTO account("idPeople", balance, "dailyWithdrawalLimit", active, "accountType")
         VALUES(?, ?, ?, ?, ?, ?)
         RETURNING *;
-      `, [`${idPeople}`, `${balance}`, `${dailyWithdrawalLimit}`, `${active}`, `${accountType}`, `${createdAt}`]);
+      `, [`${idPeople}`, `${balance}`, `${dailyWithdrawalLimit}`, `${active}`, `${accountType}`]);
 
       return db.rows[0] as Account;
     } catch (e) {
@@ -21,7 +21,7 @@ class AccountModel implements InterfaceAccountModel {
     }
   }
 
-  public async updateById(id: number, account: AccountModelInput): Promise<Account> {
+  public async updateById(id: number, account: AccountInput): Promise<Account> {
     const {
       idPeople, balance, dailyWithdrawalLimit, active, accountType,
     } = account;
