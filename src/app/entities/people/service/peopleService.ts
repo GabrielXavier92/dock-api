@@ -11,8 +11,7 @@ class PeopleService implements InterfacePeopleService {
       throw new Error('Invalid Input');
     }
 
-    const createdPeople = await PeopleModel.create({ name, cpf, birthDate });
-    return createdPeople;
+    return PeopleModel.create({ name, cpf, birthDate });
   }
 
   public async findOnePeople(id: number): Promise<People> {
