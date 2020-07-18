@@ -76,4 +76,32 @@ describe('AccountController', () => {
       expect(res.json).toHaveBeenLastCalledWith({ msg: 'Internal Error' });
     });
   });
+
+  describe('getPeople', () => {
+    test('Should return 400 if idPeople is invalid', async () => {
+      const { peopleController } = maker();
+      req.params = {};
+
+      await peopleController.getPeople(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+    });
+
+    test('Should return an user', async () => {
+      const { peopleController } = maker();
+      req.params = { idPeople: '1' };
+
+      const people = {
+        idPeople: 1,
+        name: 'Gabriel Xavier',
+        cpf: '1140123012310',
+        birthDate: '1992-04-12',
+      };
+      jest.spyOn(PeopleService, 'findOnePeople').mockResolvedValue(people);
+
+      await peopleController.getPeople(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(people);
+    });
+  });
 });
