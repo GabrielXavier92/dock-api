@@ -14,11 +14,12 @@ class TransactionService implements InterfaceTransactionService {
       value,
       createdAt: new Date().toISOString(),
     };
+    if (value < 0) throw new Error('Value most be bigger than 0');
     const newTransaction = await transactionModel.create(updatedTransaction);
 
     const newAccount: AccountModelInput = {
       ...account,
-      balance: account.balance + newTransaction.value,
+      balance: Number(account.balance) + Number(newTransaction.value),
     };
 
     await accountService.updateAccountById(idAccount, newAccount);

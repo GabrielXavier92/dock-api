@@ -26,6 +26,18 @@ describe('transactionServce', () => {
     expect(true).toBe(true);
   });
   describe('deposit', () => {
+    test('Should throw error case value is under 0', async () => {
+      const { transactionService } = maker();
+
+      const transaction = {
+        idAccount: 1,
+        value: -20,
+      };
+
+      await expect(transactionService.deposit(transaction)).rejects.toThrow();
+      await expect(transactionService.deposit(transaction)).rejects.toThrowError('Invalid Input');
+    });
+
     test('Should throw error case not found idAccount', async () => {
       const { transactionService } = maker();
       jest.spyOn(AccountService, 'getAccount').mockRejectedValue(new Error('Not Found'));
