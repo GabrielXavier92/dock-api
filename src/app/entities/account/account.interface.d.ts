@@ -28,11 +28,11 @@ export interface InterfaceAccountService {
   createAccount: (account: AccountInput) => Promise<Account>;
   blockAccount: (idAccount: number) => Promise<Account>;
   getAccount: (idAccount: number) => Promise<Account>;
-  updateAccountById: (idAccount: number, account: AccountModelInput) => Promise<Account>;
+  updateAccountById: (idAccount: number, account: AccountInput) => Promise<Account>;
 }
 
 export interface InterfaceAccountModel {
-  create: (account: AccountModelInput) => Promise<Account>;
-  updateById: (id: number, account: AccountModelInput) => Promise<Account>;
+  create: (account: AccountInput) => Promise<Account>;
+  updateById: (id: number, account: AccountInput) => Promise<Account>;
   findById: (idAccount: number) => Promise<Account | undefined>;
 }
