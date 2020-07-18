@@ -1,4 +1,4 @@
-const createPeople = {
+export const createPeople = {
   tags: ['People'],
   description: 'Create an user',
   parameters: [
@@ -33,4 +33,34 @@ const createPeople = {
   },
 };
 
-export default createPeople;
+export const getPeople = {
+  tags: ['People'],
+  description: 'Find an user by id',
+  parameters: [
+    {
+      in: 'path',
+      name: 'idPeople',
+      type: 'number',
+      required: true,
+    },
+  ],
+  responses: {
+    200: {
+      description: 'Success',
+      schema: {
+        $ref: '#/paths/peopleDefinitions/People',
+      },
+    },
+    400: {
+      description: 'Success',
+      schema: {
+        properties: {
+          msg: {
+            type: 'string',
+            example: 'Invalid user input',
+          },
+        },
+      },
+    },
+  },
+};

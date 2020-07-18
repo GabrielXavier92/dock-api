@@ -8,6 +8,7 @@ const peopleRoutes = (): Router => {
   const base = '/people';
 
   routes.post(base, PeopleController.createPeopple);
+  routes.get(`${base}/:idPeople`, PeopleController.getPeople);
 
   return routes;
 };

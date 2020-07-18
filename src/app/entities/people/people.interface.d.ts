@@ -15,12 +15,15 @@ export interface PeopleInput {
 
 export interface InterfacePeopleController {
   createPeopple: (req: Request, res: Response) => Promise<void>;
+  getPeople: (req: Request, res: Response) => Promise<void>;
 }
 
 export interface InterfacePeopleService {
   createPeople: (people: PeopleInput) => Promise<People>;
+  findOnePeople: (id: number) => Promise<People>;
 }
 
 export interface InterfacePeopleModel {
   create: (people: PeopleInput) => Promise<People>;
+  findById: (id: number) => Promise<People>;
 }

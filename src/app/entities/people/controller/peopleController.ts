@@ -15,6 +15,18 @@ class PeopleController implements InterfacePeopleController {
       res.status(400).json({ msg: e.message });
     }
   }
+
+  public async getPeople(req: express.Request, res: express.Response): Promise<void> {
+    const { idPeople } = req.params;
+
+    try {
+      if (!idPeople) throw new Error('Invalid input');
+      const people = await PeopleService.findOnePeople(Number(idPeople));
+      res.status(200).json(people);
+    } catch (e) {
+      res.status(400).json({ msg: e.message });
+    }
+  }
 }
 
 export default new PeopleController();

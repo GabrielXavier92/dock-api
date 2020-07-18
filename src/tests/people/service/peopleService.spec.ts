@@ -49,4 +49,23 @@ describe('peopleService', () => {
       expect(service).toBe(createdPeople);
     });
   });
+
+  describe('findeOnePeople', () => {
+    test('Should return one people', async () => {
+      const { peopleService } = maker();
+
+      const people = {
+        idPeople: 1,
+        name: 'Gabriel Xavier',
+        birthDate: '1992-04-12',
+        cpf: '123213',
+      };
+      jest.spyOn(PeopleModel, 'findById').mockResolvedValue(people);
+
+      const service = await peopleService.findOnePeople(1);
+
+      expect(PeopleModel.findById).toBeCalledTimes(1);
+      expect(service).toBe(people);
+    });
+  });
 });

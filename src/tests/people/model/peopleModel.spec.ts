@@ -36,4 +36,21 @@ describe('peopleModel', () => {
       expect(createdPeople).toEqual({ idPeople: 1, ...people });
     });
   });
+
+  describe('findById', () => {
+    test('Should return a people', async () => {
+      const { conn, peopleModel } = maker();
+      const people = {
+        idPeople: 1,
+        name: 'Gabriel Xavier',
+        birthDate: '1992-04-12',
+        cpf: '123213',
+      };
+
+      const raw = jest.spyOn(conn, 'raw').mockResolvedValue({ rows: [{ ...people }] });
+      const createdPeople = await peopleModel.findById(1);
+      expect(raw).toBeCalledTimes(1);
+      expect(createdPeople).toEqual({ ...people });
+    });
+  });
 });

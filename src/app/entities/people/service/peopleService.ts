@@ -14,6 +14,10 @@ class PeopleService implements InterfacePeopleService {
     const createdPeople = await PeopleModel.create({ name, cpf, birthDate });
     return createdPeople;
   }
+
+  public async findOnePeople(id: number): Promise<People> {
+    return PeopleModel.findById(id);
+  }
 }
 
 export default new PeopleService();
