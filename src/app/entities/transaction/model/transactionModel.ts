@@ -1,17 +1,17 @@
 import connection from '../../../../database/connection';
 
-import { InterfaceTransactionModel, Transaction, TransactionModelInput } from '../transaction.interface.d';
+import { InterfaceTransactionModel, Transaction, TransactionInput } from '../transaction.interface.d';
 
 class TransactionModel implements InterfaceTransactionModel {
-  public async create(transaction: TransactionModelInput): Promise<Transaction> {
-    const { idAccount, value, createdAt } = transaction;
+  public async create(transaction: TransactionInput): Promise<Transaction> {
+    const { idAccount, value } = transaction;
 
     try {
       const db = await connection.raw(`
-      INSERT INTO transaction("idAccount", value, "createdAt")
-        VALUES(?, ?, ?)
+      INSERT INTO transaction("idAccount", value)
+        VALUES(?, ?)
         RETURNING *;
-      `, [`${idAccount}`, `${value}`, `${createdAt}`]);
+      `, [`${idAccount}`, `${value}`]);
 
       return db.rows[0] as Transaction;
     } catch (e) {

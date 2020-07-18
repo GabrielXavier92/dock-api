@@ -12,10 +12,6 @@ export interface TransactionInput {
   value: number;
 }
 
-export interface TransactionModelInput extends TransactionInput {
-  createdAt: string;
-}
-
 export interface InterfaceTransactionController {
   deposit: (req: Request, res: Response) => Promise<void>;
 }

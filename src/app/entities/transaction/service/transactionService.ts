@@ -12,13 +12,9 @@ class TransactionService implements InterfaceTransactionService {
     if (!checkDecimal(value)) throw new Error('Invalid value');
 
     const account = await accountService.getAccount(idAccount);
+    if (!account.active) throw new Error('Blocked Account');
 
-    const updatedTransaction = {
-      idAccount,
-      value,
-      createdAt: new Date().toISOString(),
-    };
-    const newTransaction = await transactionModel.create(updatedTransaction);
+    const newTransaction = await transactionModel.create(transaction);
 
     const newAccount: AccountModelInput = {
       ...account,
@@ -38,14 +34,9 @@ class TransactionService implements InterfaceTransactionService {
 
     const account = await accountService.getAccount(idAccount);
     if (account.balance < value) throw new Error('Insufficient funds');
+    if (!account.active) throw new Error('Blocked Account');
 
-    const updatedTransaction = {
-      idAccount,
-      value,
-      createdAt: new Date().toISOString(),
-    };
-
-    const newTransaction = await transactionModel.create(updatedTransaction);
+    const newTransaction = await transactionModel.create(transaction);
 
     const newAccount: AccountModelInput = {
       ...account,

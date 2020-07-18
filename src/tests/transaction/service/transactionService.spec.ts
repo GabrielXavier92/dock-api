@@ -118,7 +118,6 @@ describe('transactionServce', () => {
         idTransaction: 1,
         idAccount: 1,
         value: 20,
-        createdAt: '1992-04-12',
       };
 
       const account = {
@@ -132,7 +131,7 @@ describe('transactionServce', () => {
       };
 
       jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
-      jest.spyOn(TransactionModel, 'create').mockResolvedValue(transaction);
+      jest.spyOn(TransactionModel, 'create').mockResolvedValue({ ...transaction, createdAt: '1992-04-12' });
       jest.spyOn(AccountService, 'updateAccountById').mockResolvedValue({ ...account, balance: account.balance + transaction.value });
 
       const createTransaction = await transactionService.deposit(transaction);
@@ -261,7 +260,6 @@ describe('transactionServce', () => {
         idTransaction: 1,
         idAccount: 1,
         value: 20,
-        createdAt: '1992-04-12',
       };
 
       const account = {
@@ -275,7 +273,7 @@ describe('transactionServce', () => {
       };
 
       jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
-      jest.spyOn(TransactionModel, 'create').mockResolvedValue(transaction);
+      jest.spyOn(TransactionModel, 'create').mockResolvedValue({ ...transaction, createdAt: '1992-04-12' });
       jest.spyOn(AccountService, 'updateAccountById').mockResolvedValue({ ...account, balance: account.balance + transaction.value });
 
       const createTransaction = await transactionService.withdraw(transaction);
