@@ -28,13 +28,13 @@ class AccountModel implements InterfaceAccountModel {
 
     try {
       const db = await connection.raw(`
-        UPDATE account 
+        UPDATE "account"
         SET "idPeople"=?, 
             balance=?,
             "dailyWithdrawalLimit"=?,
             active=?,
-            "accountType"=?, 
-        WHERE "idAccount"=?,
+            "accountType"=?
+        WHERE "idAccount"=?
         RETURNING *;
       `, [`${idPeople}`, `${balance}`, `${dailyWithdrawalLimit}`, `${active}`, `${accountType}`, `${id}`]);
 
