@@ -7,9 +7,7 @@ class PeopleService implements InterfacePeopleService {
     // verificacao da idade, entre outros
     const birthDateRegex = new RegExp(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/);
 
-    if (!birthDateRegex.test(birthDate)) {
-      throw new Error('Invalid Input');
-    }
+    if (!birthDateRegex.test(birthDate)) throw new Error('Invalid Input');
 
     return PeopleModel.create({ name, cpf, birthDate });
   }

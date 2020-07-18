@@ -11,6 +11,7 @@ class AccountService implements InterfaceAccountService {
     if (balance < 0) throw new Error('Balance should be greater than 0');
     if (!checkDecimal(balance)) throw new Error('Invalid balance value');
     if (!checkDecimal(dailyWithdrawalLimit)) throw new Error('Invalid daily withdraw limit value');
+
     return AccountModel.create({
       idPeople, balance, dailyWithdrawalLimit, active, accountType,
     });

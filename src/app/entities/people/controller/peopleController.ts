@@ -11,6 +11,7 @@ class PeopleController implements InterfacePeopleController {
       if (typeof name !== 'string' || typeof cpf !== 'string' || typeof birthDate !== 'string') throw new Error('Invalid Input');
 
       const people = await PeopleService.createPeople({ name, cpf, birthDate });
+
       res.status(200).json(people);
     } catch (e) {
       res.status(400).json({ msg: e.message });
@@ -18,11 +19,13 @@ class PeopleController implements InterfacePeopleController {
   }
 
   public async getPeople(req: express.Request, res: express.Response): Promise<void> {
-    const { idPeople } = req.params;
-
     try {
+      const { idPeople } = req.params;
+
       if (!idPeople) throw new Error('Invalid Input');
+
       const people = await PeopleService.findOnePeople(Number(idPeople));
+
       res.status(200).json(people);
     } catch (e) {
       res.status(400).json({ msg: e.message });
