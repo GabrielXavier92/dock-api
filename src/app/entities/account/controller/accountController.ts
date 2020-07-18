@@ -10,6 +10,7 @@ class AccountController implements InterfaceAccountController {
 
     try {
       if (!idPeople || !balance || !dailyWithdrawalLimit || !active || !accountType) throw new Error('Invalid Input');
+      if (typeof idPeople !== 'number' || typeof balance !== 'number' || typeof dailyWithdrawalLimit !== 'number' || typeof active !== 'boolean' || typeof accountType !== 'number') throw new Error('Invalid Input');
 
       const account = await AccountService.createAccount({
         idPeople, balance, dailyWithdrawalLimit, active, accountType,

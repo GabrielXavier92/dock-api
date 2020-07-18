@@ -64,6 +64,21 @@ describe('AccountController', () => {
       expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
     });
 
+    test('Should return 400 if type of variables is incorrect', () => {
+      const { accountController } = maker();
+      const account = {
+        idPeople: '123',
+        balance: true,
+        dailyWithdrawalLimit: new Date(),
+        active: 'abcade',
+        accountType: '123312',
+      };
+      req.body = account;
+      accountController.createAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+    });
+
     test('Should return 200 when create account', async () => {
       const { accountController } = maker();
       const account = {
