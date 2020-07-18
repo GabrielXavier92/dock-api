@@ -14,6 +14,7 @@ export interface TransactionInput {
 
 export interface InterfaceTransactionController {
   deposit: (req: Request, res: Response) => Promise<void>;
+  withdraw: (req: Request, res: Response) => Promise<void>;
 }
 
 export interface InterfaceTransactionService {
