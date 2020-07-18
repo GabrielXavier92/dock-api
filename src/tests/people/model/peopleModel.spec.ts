@@ -22,6 +22,20 @@ describe('peopleModel', () => {
   });
 
   describe('create', () => {
+    test('Shoud throw an error case create people failed', async () => {
+      const { conn, peopleModel } = maker();
+      const people = {
+        name: 'Gabriel Xavier',
+        birthDate: '1992-04-12',
+        cpf: '123213',
+      };
+
+      jest.spyOn(conn, 'raw').mockRejectedValue('Internal Error');
+
+      await expect(peopleModel.create(people)).rejects.toThrow();
+      await expect(peopleModel.create(people)).rejects.toThrowError('Internal Error');
+    });
+
     test('Should return created people', async () => {
       const { conn, peopleModel } = maker();
       const people = {
@@ -38,6 +52,14 @@ describe('peopleModel', () => {
   });
 
   describe('findById', () => {
+    test('Shoud throw an error case findById people failed', async () => {
+      const { conn, peopleModel } = maker();
+      jest.spyOn(conn, 'raw').mockRejectedValue('Internal Error');
+
+      await expect(peopleModel.findById(1)).rejects.toThrow();
+      await expect(peopleModel.findById(1)).rejects.toThrowError('Internal Error');
+    });
+
     test('Should return a people', async () => {
       const { conn, peopleModel } = maker();
       const people = {
