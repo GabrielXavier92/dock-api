@@ -16,7 +16,7 @@ class PeopleModel implements InterfacePeopleModel {
     }
   }
 
-  public async findById(id: number): Promise<People> {
+  public async findById(id: number): Promise<People | undefined> {
     try {
       const db = await connection.raw(`
       SELECT * FROM "people" where "idPeople"=?

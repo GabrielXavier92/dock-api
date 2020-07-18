@@ -25,5 +25,5 @@ export interface InterfacePeopleService {
 
 export interface InterfacePeopleModel {
   create: (people: PeopleInput) => Promise<People>;
-  findById: (id: number) => Promise<People>;
+  findById: (id: number) => Promise<People | undefined>;
 }
