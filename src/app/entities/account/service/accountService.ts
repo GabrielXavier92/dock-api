@@ -17,22 +17,20 @@ class AccountService implements InterfaceAccountService {
     });
   }
 
-  public async blockAccount(idAccount: number): Promise<Account> {
+  public async getAccount(idAccount: number): Promise<Account> {
     const account = await AccountModel.findById(idAccount);
     if (!account) throw new Error('Not Found');
+    return account;
+  }
 
+  public async blockAccount(idAccount: number): Promise<Account> {
+    const account = await this.getAccount(idAccount);
     const block: AccountInput = {
       ...account,
       active: false,
     };
 
     return AccountModel.updateById(idAccount, block);
-  }
-
-  public async getAccount(idAccount: number): Promise<Account> {
-    const account = await AccountModel.findById(idAccount);
-    if (!account) throw new Error('Not Found');
-    return account;
   }
 
   public async updateAccountById(idAccount: number, account: AccountInput): Promise<Account> {
