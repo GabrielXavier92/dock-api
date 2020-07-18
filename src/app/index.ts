@@ -8,6 +8,8 @@ import accountRoutes from './entities/account/routes';
 import transactionRoutes from './entities/transaction/routes';
 
 import loggerMiddleware from '../utils/loggerMiddleware';
+import defaultErrorsMiddleware from '../utils/defaultErrorsMiddleware';
+
 import swaggerConfig from '../config/swagger';
 
 class App {
@@ -22,6 +24,7 @@ class App {
   private applyMiddlewares(): void {
     this.app.use(cors());
     this.app.use(bodyparser.json());
+    this.app.use(defaultErrorsMiddleware);
 
     this.app.use(loggerMiddleware);
   }
