@@ -1,6 +1,6 @@
 import * as express from 'express';
 import AccountService from '../service/accountService';
-import { AccountInput, InterfaceAccountController } from '../account.interface.d';
+import { AccountInput, InterfaceAccountController } from '../account.interface';
 
 class AccountController implements InterfaceAccountController {
   public async createAccount(req: express.Request, res: express.Response): Promise<void> {
@@ -22,12 +22,23 @@ class AccountController implements InterfaceAccountController {
 
   public async blockAccount(req: express.Request, res: express.Response): Promise<void> {
     const { idAccount } = req.params;
-
     try {
       if (!idAccount) throw new Error('Invalid Input');
 
       const block = await AccountService.blockAccount(Number(idAccount));
       res.status(200).json(block);
+    } catch (e) {
+      res.status(400).json({ msg: e.message });
+    }
+  }
+
+  public async getAccount(req: express.Request, res: express.Response): Promise<void> {
+    const { idAccount } = req.params;
+    try {
+      if (!idAccount) throw new Error('Invalid Input');
+
+      const account = await AccountService.getAccount(Number(idAccount));
+      res.status(200).json(account);
     } catch (e) {
       res.status(400).json({ msg: e.message });
     }

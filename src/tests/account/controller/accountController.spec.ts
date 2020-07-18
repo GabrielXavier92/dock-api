@@ -110,32 +110,62 @@ describe('AccountController', () => {
   });
 
   describe('blockAccount', () => {
-    test('Should return 400 idAccount is invalid', async () => {
+    test('Should return 400 if idAccount is invalid', async () => {
       const { accountController } = maker();
       req.params = {};
       await accountController.blockAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
     });
+
+    test('Should block an account', async () => {
+      const { accountController } = maker();
+      req.params = { idAccount: '1' };
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: false,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+
+      jest.spyOn(AccountService, 'blockAccount').mockResolvedValue(account);
+
+      await accountController.blockAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(account);
+    });
   });
 
-  test('Should block an account', async () => {
-    const { accountController } = maker();
-    req.params = { idAccount: '1' };
-    const account = {
-      idAccount: 1,
-      idPeople: 123,
-      balance: 50,
-      dailyWithdrawalLimit: 150,
-      active: false,
-      accountType: 1,
-      createdAt: '1992-04-12',
-    };
+  describe('getAccount', () => {
+    test('Should return 400 if idAccount is invalid', async () => {
+      const { accountController } = maker();
+      req.params = {};
+      await accountController.getAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+    });
 
-    jest.spyOn(AccountService, 'blockAccount').mockResolvedValue(account);
+    test('Should return an account', async () => {
+      const { accountController } = maker();
+      req.params = { idAccount: '1' };
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: false,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
 
-    await accountController.blockAccount(req, res);
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(account);
+      jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
+
+      await accountController.getAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(account);
+    });
   });
 });

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import AccountController from './controller/AccountController';
+import AccountController from './controller/accountController';
 
 const routes = Router();
 
@@ -11,6 +11,7 @@ const accountRoutes = (): Router => {
 
   routes.post(base, AccountController.createAccount);
   routes.post(`${base}/:idAccount/block`, AccountController.blockAccount);
+  routes.get(`${base}/:idAccount`, AccountController.blockAccount);
 
   return routes;
 };
