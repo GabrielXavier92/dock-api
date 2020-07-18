@@ -41,18 +41,6 @@ describe('transactionServce', () => {
 
     test('Should throw error case value is under 0', async () => {
       const { transactionService } = maker();
-      const account = {
-        idAccount: 1,
-        idPeople: 123,
-        balance: 50,
-        dailyWithdrawalLimit: 150,
-        active: true,
-        accountType: 1,
-        createdAt: '1992-04-12',
-      };
-
-      jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
-
       const transaction = {
         idAccount: 1,
         value: -20,
@@ -60,6 +48,17 @@ describe('transactionServce', () => {
 
       await expect(transactionService.deposit(transaction)).rejects.toThrow();
       await expect(transactionService.deposit(transaction)).rejects.toThrowError('Value most be bigger than 0');
+    });
+
+    test('Should throw error case value has more then 2 decimal case', async () => {
+      const { transactionService } = maker();
+      const transaction = {
+        idAccount: 1,
+        value: 20.12321,
+      };
+
+      await expect(transactionService.deposit(transaction)).rejects.toThrow();
+      await expect(transactionService.deposit(transaction)).rejects.toThrowError('Invalid value');
     });
 
     test('Should throw error case not create transaction', async () => {
