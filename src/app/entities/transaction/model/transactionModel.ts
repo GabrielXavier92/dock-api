@@ -9,7 +9,7 @@ class TransactionModel implements InterfaceTransactionModel {
     try {
       const db = await connection.raw(`
       INSERT INTO transaction("idAccount", value, "createdAt")
-        VALUES(?, ?, ?, ?, ?, ?)
+        VALUES(?, ?, ?)
         RETURNING *;
       `, [`${idAccount}`, `${value}`, `${createdAt}`]);
 
