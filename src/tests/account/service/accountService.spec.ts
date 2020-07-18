@@ -32,6 +32,20 @@ describe('accountService', () => {
       await expect(accountService.createAccount(account)).rejects.toThrowError('Invalid balance value');
     });
 
+    test('Shoud throw error if dailyWithdrawalLimit has more than 2 decimal cases', async () => {
+      const { accountService } = maker();
+      const account = {
+        idPeople: 123,
+        balance: 50.02,
+        dailyWithdrawalLimit: 150.123213,
+        active: true,
+        accountType: 1,
+      };
+
+      await expect(accountService.createAccount(account)).rejects.toThrow();
+      await expect(accountService.createAccount(account)).rejects.toThrowError('Invalid daily withdraw limit value');
+    });
+
     test('Should create account', async () => {
       const { accountService } = maker();
       const account = {

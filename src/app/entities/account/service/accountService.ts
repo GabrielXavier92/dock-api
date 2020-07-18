@@ -9,6 +9,7 @@ class AccountService implements InterfaceAccountService {
     idPeople, balance, dailyWithdrawalLimit, active, accountType,
   }: AccountInput): Promise<Account> {
     if (!checkDecimal(balance)) throw new Error('Invalid balance value');
+    if (!checkDecimal(dailyWithdrawalLimit)) throw new Error('Invalid daily withdraw limit value');
     const createdAt = new Date().toISOString().slice(0, 10);
     const account: AccountModelInput = {
       idPeople,
