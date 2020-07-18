@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 
+import { Account } from '../../entities/account/account.interface';
+
 export interface Transaction {
   idTransaction: number;
   idAccount: number;
@@ -10,6 +12,11 @@ export interface Transaction {
 export interface TransactionInput {
   idAccount: number;
   value: number;
+}
+
+export interface TransactionValidate {
+  account: Account;
+  newTransaction: Transaction;
 }
 
 export interface InterfaceTransactionController {
