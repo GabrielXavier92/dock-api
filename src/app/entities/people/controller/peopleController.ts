@@ -20,7 +20,7 @@ class PeopleController implements InterfacePeopleController {
     const { idPeople } = req.params;
 
     try {
-      if (!idPeople) throw new Error('Invalid input');
+      if (!idPeople) throw new Error('Invalid Input');
       const people = await PeopleService.findOnePeople(Number(idPeople));
       res.status(200).json(people);
     } catch (e) {
