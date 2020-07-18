@@ -18,11 +18,25 @@ describe('accountService', () => {
   });
 
   describe('createAccount', () => {
+    test('Shoud throw error if balance has more than 2 decimal cases', async () => {
+      const { accountService } = maker();
+      const account = {
+        idPeople: 123,
+        balance: 50.1209,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+      };
+
+      await expect(accountService.createAccount(account)).rejects.toThrow();
+      await expect(accountService.createAccount(account)).rejects.toThrowError('Invalid balance value');
+    });
+
     test('Should create account', async () => {
       const { accountService } = maker();
       const account = {
         idPeople: 123,
-        balance: 50,
+        balance: 50.12,
         dailyWithdrawalLimit: 150,
         active: true,
         accountType: 1,
