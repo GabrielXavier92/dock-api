@@ -5,6 +5,8 @@ import AccountService from '../../../app/entities/account/service/accountService
 
 import { InterfaceAccountController } from '../../../app/entities/account/account.interface';
 
+jest.mock('../../../app/entities/account/service/accountService');
+
 type maker = {
   accountController: InterfaceAccountController;
 };
@@ -105,5 +107,35 @@ describe('AccountController', () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenLastCalledWith({ msg: 'Internal Error' });
     });
+  });
+
+  describe('blockAccount', () => {
+    test('Should return 400 idAccount is invalid', async () => {
+      const { accountController } = maker();
+      req.params = {};
+      await accountController.blockAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+    });
+  });
+
+  test('Should block an account', async () => {
+    const { accountController } = maker();
+    req.params = { idAccount: '1' };
+    const account = {
+      idAccount: 1,
+      idPeople: 123,
+      balance: 50,
+      dailyWithdrawalLimit: 150,
+      active: false,
+      accountType: 1,
+      createdAt: '1992-04-12',
+    };
+
+    jest.spyOn(AccountService, 'blockAccount').mockResolvedValue(account);
+
+    await accountController.blockAccount(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(account);
   });
 });

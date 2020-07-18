@@ -14,8 +14,20 @@ class AccountController implements InterfaceAccountController {
       const account = await AccountService.createAccount({
         idPeople, balance, dailyWithdrawalLimit, active, accountType,
       });
-
       res.status(200).json(account);
+    } catch (e) {
+      res.status(400).json({ msg: e.message });
+    }
+  }
+
+  public async blockAccount(req: express.Request, res: express.Response): Promise<void> {
+    const { idAccount } = req.params;
+
+    try {
+      if (!idAccount) throw new Error('Invalid Input');
+
+      const block = await AccountService.blockAccount(Number(idAccount));
+      res.status(200).json(block);
     } catch (e) {
       res.status(400).json({ msg: e.message });
     }
