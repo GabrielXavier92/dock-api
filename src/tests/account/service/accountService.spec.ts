@@ -51,26 +51,55 @@ describe('accountService', () => {
       await expect(accountService.blockAccount(1)).rejects.toThrow();
       await expect(accountService.blockAccount(1)).rejects.toThrowError('Not Found');
     });
+
+    test('Should block an account', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(AccountModel, 'findById').mockResolvedValue(account);
+      jest.spyOn(AccountModel, 'updateById').mockResolvedValue({ ...account, active: false });
+
+      const blockAccount = await accountService.blockAccount(1);
+
+      expect(AccountModel.findById).toBeCalledTimes(1);
+      expect(AccountModel.updateById).toBeCalledTimes(1);
+      expect(blockAccount).toMatchObject({ ...account, active: false });
+    });
   });
 
-  test('Should block an account', async () => {
-    const { accountService } = maker();
-    const account = {
-      idAccount: 1,
-      idPeople: 123,
-      balance: 50,
-      dailyWithdrawalLimit: 150,
-      active: true,
-      accountType: 1,
-      createdAt: '1992-04-12',
-    };
-    jest.spyOn(AccountModel, 'findById').mockResolvedValue(account);
-    jest.spyOn(AccountModel, 'updateById').mockResolvedValue({ ...account, active: false });
+  describe('getAccount', () => {
+    test('Should throw error case not found idAccount', async () => {
+      const { accountService } = maker();
+      jest.spyOn(AccountModel, 'findById').mockResolvedValue(undefined);
 
-    const blockAccount = await accountService.blockAccount(1);
+      await expect(accountService.getAccount(1)).rejects.toThrow();
+      await expect(accountService.getAccount(1)).rejects.toThrowError('Not Found');
+    });
 
-    expect(AccountModel.findById).toBeCalledTimes(1);
-    expect(AccountModel.updateById).toBeCalledTimes(1);
-    expect(blockAccount).toMatchObject({ ...account, active: false });
+    test('Should get an account', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(AccountModel, 'findById').mockResolvedValue(account);
+
+      const getAccount = await accountService.getAccount(1);
+
+      expect(AccountModel.findById).toBeCalledTimes(1);
+      expect(getAccount).toMatchObject({ ...account });
+    });
   });
 });
