@@ -22,6 +22,7 @@ export interface InterfaceTransactionController {
 
 export interface InterfaceTransactionService {
   deposit: (transaction: TransactionInput) => Promise<Transaction>;
+  withdraw: (transaction: TransactionInput) => Promise<Transaction>;
 }
 
 export interface InterfaceTransactionModel {
