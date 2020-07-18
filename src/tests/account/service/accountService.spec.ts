@@ -102,4 +102,62 @@ describe('accountService', () => {
       expect(getAccount).toMatchObject({ ...account });
     });
   });
+
+  describe('updateAccountById', () => {
+    test('Should throw error case not find account', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+
+      jest.spyOn(accountService, 'getAccount').mockRejectedValue(new Error('Not Found'));
+
+      await expect(accountService.updateAccountById(1, account)).rejects.toThrow();
+      await expect(accountService.updateAccountById(1, account)).rejects.toThrowError('Not Found');
+    });
+
+    test('Should throw error case not update account', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(AccountModel, 'updateById').mockRejectedValue('Internal Error');
+
+      await expect(accountService.updateAccountById(1, account)).rejects.toThrow();
+      await expect(accountService.updateAccountById(1, account)).rejects.toThrowError('Not Found');
+    });
+
+    test('Should return updated account', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(accountService, 'getAccount').mockResolvedValue({ ...account, balance: 10 });
+      jest.spyOn(AccountModel, 'updateById').mockResolvedValue({ ...account });
+
+      const updateAccount = await accountService.updateAccountById(1, account);
+
+      expect(accountService.getAccount).toBeCalledTimes(1);
+      expect(AccountModel.updateById).toBeCalledTimes(1);
+      expect(updateAccount).toMatchObject({ ...account });
+    });
+  });
 });

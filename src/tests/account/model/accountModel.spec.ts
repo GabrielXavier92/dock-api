@@ -116,7 +116,7 @@ describe('accountModel', () => {
       await expect(accountModel.findById(1)).rejects.toThrowError('Internal Error');
     });
 
-    test('Should return a people', async () => {
+    test('Should return a people case findById success', async () => {
       const { conn, accountModel } = maker();
       const account = {
         idAccount: 1,

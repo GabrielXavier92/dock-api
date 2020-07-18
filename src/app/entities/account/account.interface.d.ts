@@ -31,6 +31,7 @@ export interface InterfaceAccountService {
   createAccount: (account: AccountInput) => Promise<Account>;
   blockAccount: (idAccount: number) => Promise<Account>;
   getAccount: (idAccount: number) => Promise<Account>;
+  updateAccountById: (idAccount: number, account: AccountModelInput) => Promise<Account>;
 }
 
 export interface InterfaceAccountModel {

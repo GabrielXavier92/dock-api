@@ -37,6 +37,11 @@ class AccountService implements InterfaceAccountService {
     if (!account) throw new Error('Not Found');
     return account;
   }
+
+  public async updateAccountById(idAccount: number, account: AccountModelInput): Promise<Account> {
+    await this.getAccount(idAccount);
+    return AccountModel.updateById(idAccount, account);
+  }
 }
 
 export default new AccountService();
