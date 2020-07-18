@@ -61,6 +61,29 @@ describe('transactionServce', () => {
       await expect(transactionService.deposit(transaction)).rejects.toThrowError('Not Found');
     });
 
+    test('Should throw error case account is blocked', async () => {
+      const { transactionService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: false,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+
+      jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
+
+      const transaction = {
+        idAccount: 1,
+        value: 20,
+      };
+
+      await expect(transactionService.deposit(transaction)).rejects.toThrow();
+      await expect(transactionService.deposit(transaction)).rejects.toThrowError('Blocked Account');
+    });
+
     test('Should throw error case not create transaction', async () => {
       const { transactionService } = maker();
       const account = {
@@ -201,6 +224,29 @@ describe('transactionServce', () => {
 
       await expect(transactionService.withdraw(transaction)).rejects.toThrow();
       await expect(transactionService.withdraw(transaction)).rejects.toThrowError('Insufficient funds');
+    });
+
+    test('Should throw error case account is blocked', async () => {
+      const { transactionService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: false,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+
+      jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
+
+      const transaction = {
+        idAccount: 1,
+        value: 20,
+      };
+
+      await expect(transactionService.withdraw(transaction)).rejects.toThrow();
+      await expect(transactionService.withdraw(transaction)).rejects.toThrowError('Blocked Account');
     });
 
     test('Should throw error case not create transaction', async () => {
