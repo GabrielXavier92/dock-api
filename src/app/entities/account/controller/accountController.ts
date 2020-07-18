@@ -4,11 +4,10 @@ import { AccountInput, InterfaceAccountController } from '../account.interface';
 
 class AccountController implements InterfaceAccountController {
   public async createAccount(req: express.Request, res: express.Response): Promise<void> {
-    const {
-      idPeople, balance, dailyWithdrawalLimit, active, accountType,
-    } = req.body as AccountInput;
-
     try {
+      const {
+        idPeople, balance, dailyWithdrawalLimit, active, accountType,
+      } = req.body as AccountInput;
       if (!idPeople || !balance || !dailyWithdrawalLimit || !active || !accountType) throw new Error('Invalid Input');
       if (typeof idPeople !== 'number' || typeof balance !== 'number' || typeof dailyWithdrawalLimit !== 'number' || typeof active !== 'boolean' || typeof accountType !== 'number') throw new Error('Invalid Input');
 
@@ -22,8 +21,8 @@ class AccountController implements InterfaceAccountController {
   }
 
   public async blockAccount(req: express.Request, res: express.Response): Promise<void> {
-    const { idAccount } = req.params;
     try {
+      const { idAccount } = req.params;
       if (!idAccount) throw new Error('Invalid Input');
 
       const block = await AccountService.blockAccount(Number(idAccount));
@@ -34,8 +33,8 @@ class AccountController implements InterfaceAccountController {
   }
 
   public async getAccount(req: express.Request, res: express.Response): Promise<void> {
-    const { idAccount } = req.params;
     try {
+      const { idAccount } = req.params;
       if (!idAccount) throw new Error('Invalid Input');
 
       const account = await AccountService.getAccount(Number(idAccount));
