@@ -4,7 +4,9 @@ import {
 import accountService from '../../account/service/accountService';
 import transactionModel from '../model/transactionModel';
 import { AccountInput } from '../../account/account.interface';
+
 import checkDecimal from '../../../../utils/checkDecimal';
+import checkDate from '../../../../utils/checkDate';
 
 class TransactionService implements InterfaceTransactionService {
   public async deposit(transaction: TransactionInput): Promise<Transaction> {
@@ -30,6 +32,9 @@ class TransactionService implements InterfaceTransactionService {
   }
 
   public async extract(idAccount: number, start?: string, end?: string): Promise<Array<Transaction>> {
+    if (start && !checkDate(start)) throw new Error('Invalid Input');
+    if (end && !checkDate(end)) throw new Error('Invalid Input');
+
     const transaction = await transactionModel.findByIdAccount(idAccount, start, end);
     if (!transaction) throw new Error('Not Found');
     return transaction;
