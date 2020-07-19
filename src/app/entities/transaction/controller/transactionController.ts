@@ -35,7 +35,7 @@ class TransactionController implements InterfaceTransactionController {
     try {
       const { start, end } = req.query;
       const { idAccount } = req.params;
-      if (!idAccount) throw new Error('Invalid Input');
+      if (!idAccount) throw new Error('idAccount is required');
 
       const transaction = await transactionService.extract(Number(idAccount), start?.toString(), end?.toString());
 

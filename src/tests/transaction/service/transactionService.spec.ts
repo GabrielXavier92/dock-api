@@ -338,7 +338,7 @@ describe('transactionServce', () => {
       const start = '141241241';
 
       await expect(transactionService.extract(1, start)).rejects.toThrow();
-      await expect(transactionService.extract(1, start)).rejects.toThrowError('Invalid Input');
+      await expect(transactionService.extract(1, start)).rejects.toThrowError('Invalid start date');
     });
 
     test('Should trow error case end date is in invalid format', async () => {
@@ -347,7 +347,7 @@ describe('transactionServce', () => {
       const end = '141241241';
 
       await expect(transactionService.extract(1, start, end)).rejects.toThrow();
-      await expect(transactionService.extract(1, start, end)).rejects.toThrowError('Invalid Input');
+      await expect(transactionService.extract(1, start, end)).rejects.toThrowError('Invalid end date');
     });
 
     test('Should trow error case not found extracts', async () => {
@@ -355,7 +355,7 @@ describe('transactionServce', () => {
       jest.spyOn(TransactionModel, 'findByIdAccount').mockResolvedValue(undefined);
 
       await expect(transactionService.extract(1)).rejects.toThrow();
-      await expect(transactionService.extract(1)).rejects.toThrowError('Not Found');
+      await expect(transactionService.extract(1)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should return extracts', async () => {

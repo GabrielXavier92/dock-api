@@ -32,11 +32,11 @@ class TransactionService implements InterfaceTransactionService {
   }
 
   public async extract(idAccount: number, start?: string, end?: string): Promise<Array<Transaction>> {
-    if (start && !checkDate(start)) throw new Error('Invalid Input');
-    if (end && !checkDate(end)) throw new Error('Invalid Input');
+    if (start && !checkDate(start)) throw new Error('Invalid start date');
+    if (end && !checkDate(end)) throw new Error('Invalid end date');
 
     const transaction = await transactionModel.findByIdAccount(idAccount, start, end);
-    if (!transaction) throw new Error('Not Found');
+    if (!transaction) throw new Error(`Not found account with idAccount ${idAccount}`);
     return transaction;
   }
 

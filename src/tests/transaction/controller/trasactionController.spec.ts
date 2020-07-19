@@ -152,7 +152,7 @@ describe('TransactionController', () => {
       transactionController.extract(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+      expect(res.json).toBeCalledWith({ msg: 'idAccount is required' });
     });
 
     test('Shoud return extract', async () => {
