@@ -76,7 +76,7 @@ describe('transactionModel', () => {
       const raw = jest.spyOn(conn, 'raw').mockResolvedValueOnce({ rows: [{ ...transaction }] });
       const createdPeople = await transactionModel.findByIdAccount(1);
       expect(raw).toBeCalledTimes(1);
-      expect(createdPeople).toEqual({ ...transaction });
+      expect(createdPeople).toEqual([{ ...transaction }]);
     });
   });
 });

@@ -19,13 +19,13 @@ class TransactionModel implements InterfaceTransactionModel {
     }
   }
 
-  public async findByIdAccount(idAccount: number): Promise<Transaction | undefined> {
+  public async findByIdAccount(idAccount: number, start?: string, end?: string): Promise<Array<Transaction> | undefined> {
     try {
       const db = await connection.raw(`
-      SELECT * FROM "transaction" where "idAccount"=?
-    `, [idAccount]);
+      SELECT * FROM "transaction" where "idAccount"=? AND "createdAt" BETWEEN ? AND ?
+    `, [`${idAccount}`, `${start}`, `${end}`]);
 
-      return db.rows[0] as Transaction;
+      return db.rows as Array<Transaction>;
     } catch (e) {
       throw new Error('Internal Error');
     }

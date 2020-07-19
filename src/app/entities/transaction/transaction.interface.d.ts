@@ -27,9 +27,10 @@ export interface InterfaceTransactionController {
 export interface InterfaceTransactionService {
   deposit: (transaction: TransactionInput) => Promise<Transaction>;
   withdraw: (transaction: TransactionInput) => Promise<Transaction>;
+  extract: (idAccount: number, start?: string, end?: string) => Promise<Array<Transaction>>;
 }
 
 export interface InterfaceTransactionModel {
   create: (transaction: TransactionInput) => Promise<Transaction>;
-  findByIdAccount: (idAccount: number) => Promise<Transaction | undefined>;
+  findByIdAccount: (idAccount: number, start?: string, end?: string) => Promise<Array<Transaction> | undefined>;
 }
