@@ -30,6 +30,20 @@ class TransactionController implements InterfaceTransactionController {
       res.status(400).json({ msg: e.message });
     }
   }
+
+  public async extract(req: express.Request, res: express.Response): Promise<void> {
+    try {
+      const { start, end } = req.query;
+      const { idAccount } = req.params;
+      if (!idAccount) throw new Error('Invalid Input');
+
+      const transaction = await transactionService.extract(Number(idAccount), start?.toString(), end?.toString());
+
+      res.status(200).json(transaction);
+    } catch (e) {
+      res.status(400).json({ msg: e.message });
+    }
+  }
 }
 
 export default new TransactionController();

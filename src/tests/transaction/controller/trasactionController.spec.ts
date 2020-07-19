@@ -141,4 +141,44 @@ describe('TransactionController', () => {
       expect(res.json).toHaveBeenLastCalledWith(createdTransaction);
     });
   });
+
+  describe('extract', () => {
+    test('Shoud return error case idAccount is not provided', () => {
+      const { transactionController } = maker();
+
+      req.query = { start: '', end: '' };
+      req.params = { idAccount: '' };
+
+      transactionController.extract(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toBeCalledWith({ msg: 'Invalid Input' });
+    });
+
+    test('Shoud return extract', async () => {
+      const { transactionController } = maker();
+
+      const extract = [
+        {
+          idTransaction: 1,
+          idAccount: 1,
+          value: 20,
+          createdAt: '2009-04-09',
+        },
+        {
+          idTransaction: 2,
+          idAccount: 1,
+          value: 50,
+          createdAt: '2009-04-11',
+        },
+      ];
+      req.params = { idAccount: '1' };
+
+      jest.spyOn(TransactionService, 'extract').mockResolvedValue(extract);
+
+      await transactionController.extract(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenLastCalledWith(extract);
+    });
+  });
 });
