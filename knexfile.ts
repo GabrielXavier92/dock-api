@@ -5,7 +5,7 @@ const production = process.env.NODE_ENV;
 
 module.exports = {
   client: 'pg',
-  connection: production
+  connection: production === 'production'
     ? {
       host: 'db',
       user: 'postgres',
