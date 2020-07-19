@@ -91,7 +91,7 @@ describe('accountService', () => {
       jest.spyOn(AccountModel, 'findById').mockResolvedValueOnce(undefined);
 
       await expect(accountService.getAccount(1)).rejects.toThrow();
-      await expect(accountService.getAccount(1)).rejects.toThrowError('Not Found');
+      await expect(accountService.getAccount(1)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should get an account', async () => {
@@ -118,10 +118,10 @@ describe('accountService', () => {
     test('Should throw error case not found idAccount', async () => {
       const { accountService } = maker();
 
-      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error('Not Found'));
+      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error(`Not found account with idAccount ${1}`));
 
       await expect(accountService.blockAccount(1)).rejects.toThrow();
-      await expect(accountService.blockAccount(1)).rejects.toThrowError('Not Found');
+      await expect(accountService.blockAccount(1)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should return account if is blocked', async () => {
@@ -169,10 +169,10 @@ describe('accountService', () => {
     test('Should throw error case not found idAccount', async () => {
       const { accountService } = maker();
 
-      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error('Not Found'));
+      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error(`Not found account with idAccount ${1}`));
 
       await expect(accountService.unlockAccount(1)).rejects.toThrow();
-      await expect(accountService.unlockAccount(1)).rejects.toThrowError('Not Found');
+      await expect(accountService.unlockAccount(1)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should return account if is blocked', async () => {
@@ -229,10 +229,10 @@ describe('accountService', () => {
         createdAt: '1992-04-12',
       };
 
-      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error('Not Found'));
+      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error(`Not found account with idAccount ${1}`));
 
       await expect(accountService.updateAccountById(1, account)).rejects.toThrow();
-      await expect(accountService.updateAccountById(1, account)).rejects.toThrowError('Not Found');
+      await expect(accountService.updateAccountById(1, account)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should throw error case not update account', async () => {
@@ -249,7 +249,7 @@ describe('accountService', () => {
       jest.spyOn(AccountModel, 'updateById').mockRejectedValue('Internal Error');
 
       await expect(accountService.updateAccountById(1, account)).rejects.toThrow();
-      await expect(accountService.updateAccountById(1, account)).rejects.toThrowError('Not Found');
+      await expect(accountService.updateAccountById(1, account)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should return updated account', async () => {

@@ -12,6 +12,8 @@ class AccountService implements InterfaceAccountService {
     if (!checkDecimal(balance)) throw new Error('Invalid balance value');
     if (!checkDecimal(dailyWithdrawalLimit)) throw new Error('Invalid daily withdraw limit value');
 
+    // Adicionar regra de negocio para verificar se existe a people
+
     return AccountModel.create({
       idPeople, balance, dailyWithdrawalLimit, active, accountType,
     });
@@ -19,7 +21,7 @@ class AccountService implements InterfaceAccountService {
 
   public async getAccount(idAccount: number): Promise<Account> {
     const account = await AccountModel.findById(idAccount);
-    if (!account) throw new Error('Not Found');
+    if (!account) throw new Error(`Not found account with idAccount ${idAccount}`);
     return account;
   }
 

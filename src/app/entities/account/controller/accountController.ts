@@ -23,7 +23,7 @@ class AccountController implements InterfaceAccountController {
   public async blockAccount(req: express.Request, res: express.Response): Promise<void> {
     try {
       const { idAccount } = req.params;
-      if (!idAccount) throw new Error('Invalid Input');
+      if (!idAccount) throw new Error('idAccount is required');
 
       const block = await AccountService.blockAccount(Number(idAccount));
       res.status(200).json(block);
@@ -35,7 +35,7 @@ class AccountController implements InterfaceAccountController {
   public async unlockAccount(req: express.Request, res: express.Response): Promise<void> {
     try {
       const { idAccount } = req.params;
-      if (!idAccount) throw new Error('Invalid Input');
+      if (!idAccount) throw new Error('idAccount is required');
 
       const block = await AccountService.unlockAccount(Number(idAccount));
       res.status(200).json(block);
@@ -47,7 +47,7 @@ class AccountController implements InterfaceAccountController {
   public async getAccount(req: express.Request, res: express.Response): Promise<void> {
     try {
       const { idAccount } = req.params;
-      if (!idAccount) throw new Error('Invalid Input');
+      if (!idAccount) throw new Error('idAccount is required');
 
       const account = await AccountService.getAccount(Number(idAccount));
       res.status(200).json(account);

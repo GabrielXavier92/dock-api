@@ -130,7 +130,7 @@ describe('AccountController', () => {
       req.params = {};
       await accountController.blockAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+      expect(res.json).toHaveBeenCalledWith({ msg: 'idAccount is required' });
     });
 
     test('Should block an account', async () => {
@@ -160,7 +160,7 @@ describe('AccountController', () => {
       req.params = {};
       await accountController.unlockAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+      expect(res.json).toHaveBeenCalledWith({ msg: 'idAccount is required' });
     });
 
     test('Should unlock an account', async () => {
@@ -190,7 +190,7 @@ describe('AccountController', () => {
       req.params = {};
       await accountController.getAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+      expect(res.json).toHaveBeenCalledWith({ msg: 'idAccount is required' });
     });
 
     test('Should return an account', async () => {
