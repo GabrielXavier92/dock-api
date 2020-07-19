@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-const defaultErrorsMiddleware = (err: express.ErrorRequestHandler, req: express.Request, res: express.Response, next: express.NextFunction): void => {
+const defaultErrorsMiddleware = (err: express.ErrorRequestHandler, _: express.Request, res: express.Response, next: express.NextFunction): void => {
   if (res.headersSent) {
     return next(err);
   }
