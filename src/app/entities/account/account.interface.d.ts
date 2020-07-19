@@ -27,6 +27,7 @@ export interface InterfaceAccountController {
 export interface InterfaceAccountService {
   createAccount: (account: AccountInput) => Promise<Account>;
   blockAccount: (idAccount: number) => Promise<Account>;
+  unlockAccount: (idAccount: number) => Promise<Account>;
   getAccount: (idAccount: number) => Promise<Account>;
   updateAccountById: (idAccount: number, account: AccountInput) => Promise<Account>;
 }

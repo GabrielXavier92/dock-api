@@ -25,12 +25,25 @@ class AccountService implements InterfaceAccountService {
 
   public async blockAccount(idAccount: number): Promise<Account> {
     const account = await this.getAccount(idAccount);
+    if (!account.active) return account;
+
     const block: AccountInput = {
       ...account,
       active: false,
     };
 
     return this.updateAccountById(idAccount, block);
+  }
+
+  public async unlockAccount(idAccount: number): Promise<Account> {
+    const account = await this.getAccount(idAccount);
+    if (account.active) return account;
+
+    const unlock: Account = {
+      ...account,
+      active: true,
+    };
+    return this.updateAccountById(idAccount, unlock);
   }
 
   public async updateAccountById(idAccount: number, account: AccountInput): Promise<Account> {

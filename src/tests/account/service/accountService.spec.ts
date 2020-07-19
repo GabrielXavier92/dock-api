@@ -124,6 +124,25 @@ describe('accountService', () => {
       await expect(accountService.blockAccount(1)).rejects.toThrowError('Not Found');
     });
 
+    test('Should return account if is blocked', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: false,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(accountService, 'getAccount').mockResolvedValueOnce(account);
+
+      const blockAccount = await accountService.blockAccount(1);
+
+      expect(accountService.getAccount).toBeCalledTimes(1);
+      expect(blockAccount).toMatchObject(account);
+    });
+
     test('Should block an account', async () => {
       const { accountService } = maker();
       const account = {
@@ -143,6 +162,57 @@ describe('accountService', () => {
       expect(accountService.getAccount).toBeCalledTimes(1);
       expect(accountService.updateAccountById).toBeCalledTimes(1);
       expect(blockAccount).toMatchObject({ ...account, active: false });
+    });
+  });
+
+  describe('unlockAccount', () => {
+    test('Should throw error case not found idAccount', async () => {
+      const { accountService } = maker();
+
+      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error('Not Found'));
+
+      await expect(accountService.unlockAccount(1)).rejects.toThrow();
+      await expect(accountService.unlockAccount(1)).rejects.toThrowError('Not Found');
+    });
+
+    test('Should return account if is blocked', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(accountService, 'getAccount').mockResolvedValueOnce(account);
+
+      const unlockAccount = await accountService.unlockAccount(1);
+
+      expect(accountService.getAccount).toBeCalledTimes(1);
+      expect(unlockAccount).toMatchObject(account);
+    });
+
+    test('Should unlock an account', async () => {
+      const { accountService } = maker();
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: false,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+      jest.spyOn(accountService, 'getAccount').mockResolvedValueOnce(account);
+      jest.spyOn(accountService, 'updateAccountById').mockResolvedValueOnce({ ...account, active: true });
+
+      const unlockAccount = await accountService.unlockAccount(1);
+
+      expect(accountService.getAccount).toBeCalledTimes(1);
+      expect(accountService.updateAccountById).toBeCalledTimes(1);
+      expect(unlockAccount).toMatchObject({ ...account, active: true });
     });
   });
 
