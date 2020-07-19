@@ -27,7 +27,7 @@ describe('peopleService', () => {
         cpf: '123213',
       };
       await expect(peopleService.createPeople(people)).rejects.toThrow();
-      await expect(peopleService.createPeople(people)).rejects.toThrowError('Invalid Input');
+      await expect(peopleService.createPeople(people)).rejects.toThrowError('Invalid birth date');
     });
 
     test('Should return people if data is valid', async () => {
@@ -59,7 +59,7 @@ describe('peopleService', () => {
       jest.spyOn(PeopleModel, 'findById').mockResolvedValueOnce(undefined);
 
       await expect(peopleService.findOnePeople(1)).rejects.toThrow();
-      await expect(peopleService.findOnePeople(1)).rejects.toThrowError('Not Found');
+      await expect(peopleService.findOnePeople(1)).rejects.toThrowError(`Not found account with idAccount ${1}`);
     });
 
     test('Should return one people', async () => {

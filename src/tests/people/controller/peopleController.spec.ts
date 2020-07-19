@@ -97,7 +97,7 @@ describe('AccountController', () => {
 
       await peopleController.getPeople(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+      expect(res.json).toHaveBeenCalledWith({ msg: 'idPeople is required' });
     });
 
     test('Should return an user', async () => {

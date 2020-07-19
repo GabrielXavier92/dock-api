@@ -7,14 +7,14 @@ class PeopleService implements InterfacePeopleService {
     // Poderia ser adicionado mais regras de negocio nessa camada como verificacao de documento
     // verificacao da idade, entre outros
 
-    if (!checkDate(birthDate)) throw new Error('Invalid Input');
+    if (!checkDate(birthDate)) throw new Error('Invalid birth date');
 
     return PeopleModel.create({ name, cpf, birthDate });
   }
 
-  public async findOnePeople(id: number): Promise<People> {
-    const people = await PeopleModel.findById(id);
-    if (!people) throw new Error('Not Found');
+  public async findOnePeople(idPeople: number): Promise<People> {
+    const people = await PeopleModel.findById(idPeople);
+    if (!people) throw new Error(`Not found account with idAccount ${idPeople}`);
     return people;
   }
 }

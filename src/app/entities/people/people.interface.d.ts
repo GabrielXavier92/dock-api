@@ -20,7 +20,7 @@ export interface InterfacePeopleController {
 
 export interface InterfacePeopleService {
   createPeople: (people: PeopleInput) => Promise<People>;
-  findOnePeople: (id: number) => Promise<People>;
+  findOnePeople: (idPeople: number) => Promise<People>;
 }
 
 export interface InterfacePeopleModel {
