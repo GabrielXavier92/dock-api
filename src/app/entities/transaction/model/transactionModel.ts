@@ -34,7 +34,6 @@ class TransactionModel implements InterfaceTransactionModel {
 
       return db.rows as Array<Transaction>;
     } catch (e) {
-      console.log(e);
       throw new Error('Internal Error');
     }
   }
