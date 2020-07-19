@@ -5,12 +5,12 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "sucrase ./src -d ./build --transforms typescript,imports",
+    "start": "ts-node src/server.ts",
     "test": "jest --watch --no-cache",
     "test:ci": "jest --coverage --noStackTrace --silent",
     "test:coverage": "jest --coverage --noStackTrace --silent",
-    "database-migrations": "npx knex migrate:latest",
-    "database-seed": "npx knex seed:run",
+    "database-migrations": "yarn knex migrate:latest",
+    "database-seed": "yarn knex seed:run",
     "database": "npm run database-migrations && npm run database-seed"
   },
   "repository": {
@@ -34,6 +34,7 @@
     "objection": "^2.2.1",
     "pg": "^8.3.0",
     "swagger-ui-express": "^4.1.4",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
   },
   "devDependencies": {
@@ -46,7 +47,6 @@
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-plugin-import": "^2.20.1",
     "jest": "^26.1.0",
-    "sucrase": "^3.15.0",
     "ts-jest": "^26.1.2",
     "ts-node-dev": "^1.0.0-pre.51"
   }
