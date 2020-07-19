@@ -3,6 +3,7 @@ import {
   InterfaceAccountService, AccountInput, Account,
 } from '../account.interface.d';
 import checkDecimal from '../../../../utils/checkDecimal';
+import peopleService from '../../people/service/peopleService';
 
 class AccountService implements InterfaceAccountService {
   public async createAccount({
@@ -12,7 +13,7 @@ class AccountService implements InterfaceAccountService {
     if (!checkDecimal(balance)) throw new Error('Invalid balance value');
     if (!checkDecimal(dailyWithdrawalLimit)) throw new Error('Invalid daily withdraw limit value');
 
-    // Adicionar regra de negocio para verificar se existe a people
+    await peopleService.findOnePeople(idPeople);
 
     return AccountModel.create({
       idPeople, balance, dailyWithdrawalLimit, active, accountType,

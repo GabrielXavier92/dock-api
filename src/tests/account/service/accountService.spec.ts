@@ -1,8 +1,10 @@
 import AccountService from '../../../app/entities/account/service/accountService';
 import AccountModel from '../../../app/entities/account/model/accountModel';
+import PeopleService from '../../../app/entities/people/service/peopleService';
 
 import { InterfaceAccountService } from '../../../app/entities/account/account.interface.d';
 
+jest.mock('../../../app/entities/people/service/peopleService');
 jest.mock('../../../app/entities/account/model/accountModel');
 type maker = {
   accountService: InterfaceAccountService;
@@ -60,8 +62,31 @@ describe('accountService', () => {
       await expect(accountService.createAccount(account)).rejects.toThrowError('Invalid daily withdraw limit value');
     });
 
+    test('Should throw error if not found idPeople', async () => {
+      const { accountService } = maker();
+      const account = {
+        idPeople: 123,
+        balance: 50.02,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+      };
+
+      jest.spyOn(PeopleService, 'findOnePeople').mockRejectedValue(new Error(`Not found account with idAccount ${account.idPeople}`));
+
+      await expect(accountService.createAccount(account)).rejects.toThrow();
+      await expect(accountService.createAccount(account)).rejects.toThrowError(`Not found account with idAccount ${account.idPeople}`);
+    });
+
     test('Should create account', async () => {
       const { accountService } = maker();
+      const people = {
+        idPeople: 1,
+        name: 'Gabriel Xavier',
+        birthDate: '1992-04-12',
+        cpf: '123213',
+      };
+
       const account = {
         idPeople: 123,
         balance: 50.12,
@@ -77,6 +102,7 @@ describe('accountService', () => {
       };
 
       jest.spyOn(AccountModel, 'create').mockResolvedValueOnce(createdAccount);
+      jest.spyOn(PeopleService, 'findOnePeople').mockResolvedValue(people);
 
       const service = await accountService.createAccount(account);
 
