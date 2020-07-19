@@ -43,7 +43,7 @@ describe('peopleService', () => {
         ...people,
       };
 
-      jest.spyOn(PeopleModel, 'create').mockResolvedValue(createdPeople);
+      jest.spyOn(PeopleModel, 'create').mockResolvedValueOnce(createdPeople);
 
       const service = await peopleService.createPeople(people);
 
@@ -56,7 +56,7 @@ describe('peopleService', () => {
     test('Should throw error case not found people', async () => {
       const { peopleService } = maker();
 
-      jest.spyOn(PeopleModel, 'findById').mockResolvedValue(undefined);
+      jest.spyOn(PeopleModel, 'findById').mockResolvedValueOnce(undefined);
 
       await expect(peopleService.findOnePeople(1)).rejects.toThrow();
       await expect(peopleService.findOnePeople(1)).rejects.toThrowError('Not Found');
@@ -71,7 +71,7 @@ describe('peopleService', () => {
         birthDate: '1992-04-12',
         cpf: '123213',
       };
-      jest.spyOn(PeopleModel, 'findById').mockResolvedValue(people);
+      jest.spyOn(PeopleModel, 'findById').mockResolvedValueOnce(people);
 
       const service = await peopleService.findOnePeople(1);
 

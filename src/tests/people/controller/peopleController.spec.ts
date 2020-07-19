@@ -82,7 +82,7 @@ describe('AccountController', () => {
       };
       req.body = people;
 
-      jest.spyOn(PeopleService, 'createPeople').mockRejectedValue({ message: 'Internal Error' });
+      jest.spyOn(PeopleService, 'createPeople').mockRejectedValueOnce({ message: 'Internal Error' });
 
       await peopleController.createPeopple(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
@@ -110,7 +110,7 @@ describe('AccountController', () => {
         cpf: '1140123012310',
         birthDate: '1992-04-12',
       };
-      jest.spyOn(PeopleService, 'findOnePeople').mockResolvedValue(people);
+      jest.spyOn(PeopleService, 'findOnePeople').mockResolvedValueOnce(people);
 
       await peopleController.getPeople(req, res);
       expect(res.status).toHaveBeenCalledWith(200);

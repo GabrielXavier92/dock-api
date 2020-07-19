@@ -48,7 +48,7 @@ describe('transactionModel', () => {
         ...transaction,
       };
 
-      const raw = jest.spyOn(conn, 'raw').mockResolvedValue({ rows: [{ ...createdTransaction }] });
+      const raw = jest.spyOn(conn, 'raw').mockResolvedValueOnce({ rows: [{ ...createdTransaction }] });
       const create = await transactionModel.create(transaction);
       expect(raw).toBeCalledTimes(1);
       expect(create).toEqual({ ...createdTransaction });
@@ -73,7 +73,7 @@ describe('transactionModel', () => {
         createdAt: '2019-02-20T00:00:00.000',
       };
 
-      const raw = jest.spyOn(conn, 'raw').mockResolvedValue({ rows: [{ ...transaction }] });
+      const raw = jest.spyOn(conn, 'raw').mockResolvedValueOnce({ rows: [{ ...transaction }] });
       const createdPeople = await transactionModel.findByIdAccount(1);
       expect(raw).toBeCalledTimes(1);
       expect(createdPeople).toEqual({ ...transaction });
