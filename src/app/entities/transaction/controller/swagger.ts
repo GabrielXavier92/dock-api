@@ -79,3 +79,45 @@ export const withdraw = {
     },
   },
 };
+
+export const extract = {
+  tags: ['Payment'],
+  description: 'Extracts of account',
+  parameters: [
+    {
+      in: 'path',
+      name: 'idAccount',
+      type: 'number',
+      required: true,
+    },
+    {
+      name: 'start',
+      type: 'string',
+      in: 'query',
+    },
+    {
+      name: 'end',
+      type: 'string',
+      in: 'query',
+    },
+  ],
+  responses: {
+    200: {
+      description: 'Success',
+      schema: {
+        $ref: '#/paths/transactionDefinitions/Transaction',
+      },
+    },
+    400: {
+      description: 'Failed',
+      schema: {
+        properties: {
+          msg: {
+            type: 'string',
+            example: 'Invalid user input',
+          },
+        },
+      },
+    },
+  },
+};

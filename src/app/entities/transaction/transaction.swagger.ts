@@ -1,4 +1,4 @@
-import { deposit, withdraw } from './controller/swagger';
+import { deposit, withdraw, extract } from './controller/swagger';
 
 const transaction = {
   '/payment/{idAccount}/deposit': {
@@ -6,6 +6,9 @@ const transaction = {
   },
   '/payment/{idAccount}/withdraw': {
     post: withdraw,
+  },
+  '/payment/{idAccount}': {
+    get: extract,
   },
   transactionDefinitions: {
     Transaction: {
@@ -19,6 +22,12 @@ const transaction = {
     TransactionInput: {
       properties: {
         value: { type: 'number', example: 15.0 },
+      },
+    },
+    ExtractInput: {
+      properties: {
+        start: { type: 'string', example: '2020-05-01' },
+        end: { type: 'string', example: '2020-12-01' },
       },
     },
   },
