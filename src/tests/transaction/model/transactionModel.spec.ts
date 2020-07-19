@@ -64,7 +64,7 @@ describe('transactionModel', () => {
       await expect(transactionModel.findByIdAccount(1)).rejects.toThrowError('Internal Error');
     });
 
-    test('Should return a transaction case findByIdAccount success', async () => {
+    test('Should return transactions case findByIdAccount success', async () => {
       const { conn, transactionModel } = maker();
       const transaction = {
         idTransaction: 1,
@@ -75,6 +75,21 @@ describe('transactionModel', () => {
 
       const raw = jest.spyOn(conn, 'raw').mockResolvedValueOnce({ rows: [{ ...transaction }] });
       const createdPeople = await transactionModel.findByIdAccount(1);
+      expect(raw).toBeCalledTimes(1);
+      expect(createdPeople).toEqual([{ ...transaction }]);
+    });
+
+    test('Should return a transactions with start and end', async () => {
+      const { conn, transactionModel } = maker();
+      const transaction = {
+        idTransaction: 1,
+        idAccount: 1,
+        value: 20,
+        createdAt: '2019-02-20T00:00:00.000',
+      };
+
+      const raw = jest.spyOn(conn, 'raw').mockResolvedValueOnce({ rows: [{ ...transaction }] });
+      const createdPeople = await transactionModel.findByIdAccount(1, '1992-04-12', '1992-05-12');
       expect(raw).toBeCalledTimes(1);
       expect(createdPeople).toEqual([{ ...transaction }]);
     });
