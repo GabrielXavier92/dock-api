@@ -30,7 +30,7 @@ class AccountService implements InterfaceAccountService {
       active: false,
     };
 
-    return AccountModel.updateById(idAccount, block);
+    return this.updateAccountById(idAccount, block);
   }
 
   public async updateAccountById(idAccount: number, account: AccountInput): Promise<Account> {

@@ -97,7 +97,7 @@ describe('AccountController', () => {
         ...account,
       };
 
-      jest.spyOn(AccountService, 'createAccount').mockResolvedValue(createdAccount);
+      jest.spyOn(AccountService, 'createAccount').mockResolvedValueOnce(createdAccount);
 
       await accountController.createAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
@@ -116,7 +116,7 @@ describe('AccountController', () => {
 
       req.body = { ...account };
 
-      jest.spyOn(AccountService, 'createAccount').mockRejectedValue({ message: 'Internal Error' });
+      jest.spyOn(AccountService, 'createAccount').mockRejectedValueOnce({ message: 'Internal Error' });
 
       await accountController.createAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(400);
@@ -146,7 +146,7 @@ describe('AccountController', () => {
         createdAt: '1992-04-12',
       };
 
-      jest.spyOn(AccountService, 'blockAccount').mockResolvedValue(account);
+      jest.spyOn(AccountService, 'blockAccount').mockResolvedValueOnce(account);
 
       await accountController.blockAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
@@ -176,7 +176,7 @@ describe('AccountController', () => {
         createdAt: '1992-04-12',
       };
 
-      jest.spyOn(AccountService, 'getAccount').mockResolvedValue(account);
+      jest.spyOn(AccountService, 'getAccount').mockResolvedValueOnce(account);
 
       await accountController.getAccount(req, res);
       expect(res.status).toHaveBeenCalledWith(200);

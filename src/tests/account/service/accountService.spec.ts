@@ -76,7 +76,7 @@ describe('accountService', () => {
         createdAt: new Date().toISOString().slice(0, 10),
       };
 
-      jest.spyOn(AccountModel, 'create').mockResolvedValue(createdAccount);
+      jest.spyOn(AccountModel, 'create').mockResolvedValueOnce(createdAccount);
 
       const service = await accountService.createAccount(account);
 
@@ -88,7 +88,7 @@ describe('accountService', () => {
   describe('getAccount', () => {
     test('Should throw error case not found idAccount', async () => {
       const { accountService } = maker();
-      jest.spyOn(AccountModel, 'findById').mockResolvedValue(undefined);
+      jest.spyOn(AccountModel, 'findById').mockResolvedValueOnce(undefined);
 
       await expect(accountService.getAccount(1)).rejects.toThrow();
       await expect(accountService.getAccount(1)).rejects.toThrowError('Not Found');
@@ -105,7 +105,7 @@ describe('accountService', () => {
         accountType: 1,
         createdAt: '1992-04-12',
       };
-      jest.spyOn(AccountModel, 'findById').mockResolvedValue(account);
+      jest.spyOn(AccountModel, 'findById').mockResolvedValueOnce(account);
 
       const getAccount = await accountService.getAccount(1);
 
@@ -118,7 +118,7 @@ describe('accountService', () => {
     test('Should throw error case not found idAccount', async () => {
       const { accountService } = maker();
 
-      jest.spyOn(accountService, 'getAccount').mockRejectedValue(new Error('Not Found'));
+      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error('Not Found'));
 
       await expect(accountService.blockAccount(1)).rejects.toThrow();
       await expect(accountService.blockAccount(1)).rejects.toThrowError('Not Found');
@@ -135,13 +135,13 @@ describe('accountService', () => {
         accountType: 1,
         createdAt: '1992-04-12',
       };
-      jest.spyOn(accountService, 'getAccount').mockResolvedValue(account);
-      jest.spyOn(AccountModel, 'updateById').mockResolvedValue({ ...account, active: false });
+      jest.spyOn(accountService, 'getAccount').mockResolvedValueOnce(account);
+      jest.spyOn(accountService, 'updateAccountById').mockResolvedValueOnce({ ...account, active: false });
 
       const blockAccount = await accountService.blockAccount(1);
 
       expect(accountService.getAccount).toBeCalledTimes(1);
-      expect(AccountModel.updateById).toBeCalledTimes(1);
+      expect(accountService.updateAccountById).toBeCalledTimes(1);
       expect(blockAccount).toMatchObject({ ...account, active: false });
     });
   });
@@ -159,7 +159,7 @@ describe('accountService', () => {
         createdAt: '1992-04-12',
       };
 
-      jest.spyOn(accountService, 'getAccount').mockRejectedValue(new Error('Not Found'));
+      jest.spyOn(accountService, 'getAccount').mockRejectedValueOnce(new Error('Not Found'));
 
       await expect(accountService.updateAccountById(1, account)).rejects.toThrow();
       await expect(accountService.updateAccountById(1, account)).rejects.toThrowError('Not Found');
@@ -193,7 +193,7 @@ describe('accountService', () => {
         accountType: 1,
         createdAt: '1992-04-12',
       };
-      jest.spyOn(accountService, 'getAccount').mockResolvedValue({ ...account, balance: 10 });
+      jest.spyOn(accountService, 'getAccount').mockResolvedValueOnce({ ...account, balance: 10 });
       jest.spyOn(AccountModel, 'updateById').mockResolvedValue({ ...account });
 
       const updateAccount = await accountService.updateAccountById(1, account);
