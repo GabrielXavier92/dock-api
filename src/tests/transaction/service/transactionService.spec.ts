@@ -333,6 +333,23 @@ describe('transactionServce', () => {
   });
 
   describe('extract', () => {
+    test('Should trow error case start date is in invalid format', async () => {
+      const { transactionService } = maker();
+      const start = '141241241';
+
+      await expect(transactionService.extract(1, start)).rejects.toThrow();
+      await expect(transactionService.extract(1, start)).rejects.toThrowError('Invalid Input');
+    });
+
+    test('Should trow error case end date is in invalid format', async () => {
+      const { transactionService } = maker();
+      const start = '1992-04-12';
+      const end = '141241241';
+
+      await expect(transactionService.extract(1, start, end)).rejects.toThrow();
+      await expect(transactionService.extract(1, start, end)).rejects.toThrowError('Invalid Input');
+    });
+
     test('Should trow error case not found extracts', async () => {
       const { transactionService } = maker();
       jest.spyOn(TransactionModel, 'findByIdAccount').mockResolvedValue(undefined);
