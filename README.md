@@ -9,7 +9,7 @@ Teste de construção de uma API em node
 Desenho simples da arquitetura. 
 
 <p align="center"> 
-  <img src="docs/api.png">
+  <img src="doc/api.png">
 </p>
 
 ## Setup
