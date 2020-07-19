@@ -29,6 +29,12 @@ class TransactionService implements InterfaceTransactionService {
     return newTransaction;
   }
 
+  public async extract(idAccount: number, start?: string, end?: string): Promise<Array<Transaction>> {
+    const transaction = await transactionModel.findByIdAccount(idAccount, start, end);
+    if (!transaction) throw new Error('Not Found');
+    return transaction;
+  }
+
   private async validate(transaction: TransactionInput): Promise<TransactionValidate> {
     const { idAccount, value } = transaction;
 

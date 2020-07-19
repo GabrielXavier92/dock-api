@@ -331,4 +331,38 @@ describe('transactionServce', () => {
       expect(createTransaction).toMatchObject(transaction);
     });
   });
+
+  describe('extract', () => {
+    test('Should trow error case not found extracts', async () => {
+      const { transactionService } = maker();
+      jest.spyOn(TransactionModel, 'findByIdAccount').mockResolvedValue(undefined);
+
+      await expect(transactionService.extract(1)).rejects.toThrow();
+      await expect(transactionService.extract(1)).rejects.toThrowError('Not Found');
+    });
+
+    test('Should return extracts', async () => {
+      const { transactionService } = maker();
+      const transactions = [
+        {
+          idTransaction: 1,
+          idAccount: 1,
+          value: 20,
+          createdAt: '2009-04-09',
+        },
+        {
+          idTransaction: 2,
+          idAccount: 1,
+          value: 50,
+          createdAt: '2009-04-11',
+        },
+      ];
+      jest.spyOn(TransactionModel, 'findByIdAccount').mockResolvedValue(transactions);
+
+      const extract = await transactionService.extract(1);
+
+      expect(TransactionModel.findByIdAccount).toBeCalledTimes(1);
+      expect(extract).toMatchObject(transactions);
+    });
+  });
 });
