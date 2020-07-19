@@ -52,6 +52,8 @@ npm run dev
 
 * [Desenvolvimento] - Com a aplicação rodando, basta acessar a rota /swagger
 
+* [Produção](http://54.226.251.199:3000/swagger/)
+
 ## Testes
 
 > Desenvolvimento
