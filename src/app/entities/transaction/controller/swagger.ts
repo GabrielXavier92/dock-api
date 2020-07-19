@@ -1,5 +1,5 @@
 export const deposit = {
-  tags: ['Account'],
+  tags: ['Payment'],
   description: 'Deposit value in account',
   parameters: [
     {
@@ -40,7 +40,7 @@ export const deposit = {
 };
 
 export const withdraw = {
-  tags: ['Account'],
+  tags: ['Payment'],
   description: 'Withdraw value in account',
   parameters: [
     {

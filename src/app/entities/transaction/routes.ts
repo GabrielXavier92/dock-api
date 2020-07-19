@@ -5,7 +5,7 @@ import TransactionController from './controller/transactionController';
 const routes = Router();
 
 const accountRoutes = (): Router => {
-  const base = '/account';
+  const base = '/payment';
 
   routes.post(`${base}/:idAccount/deposit`, TransactionController.deposit);
   routes.post(`${base}/:idAccount/withdraw`, TransactionController.withdraw);

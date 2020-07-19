@@ -1,10 +1,10 @@
 import { deposit, withdraw } from './controller/swagger';
 
 const transaction = {
-  '/account/{idAccount}/deposit': {
+  '/payment/{idAccount}/deposit': {
     post: deposit,
   },
-  '/account/{idAccount}/withdraw': {
+  '/payment/{idAccount}/withdraw': {
     post: withdraw,
   },
   transactionDefinitions: {
