@@ -11,6 +11,7 @@ const accountRoutes = (): Router => {
 
   routes.post(base, AccountController.createAccount);
   routes.post(`${base}/:idAccount/block`, AccountController.blockAccount);
+  routes.post(`${base}/:idAccount/unlock`, AccountController.unlockAccount);
   routes.get(`${base}/:idAccount`, AccountController.getAccount);
 
   return routes;

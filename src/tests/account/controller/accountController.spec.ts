@@ -154,6 +154,36 @@ describe('AccountController', () => {
     });
   });
 
+  describe('unlockAccount', () => {
+    test('Should return 400 if idAccount is invalid', async () => {
+      const { accountController } = maker();
+      req.params = {};
+      await accountController.unlockAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ msg: 'Invalid Input' });
+    });
+
+    test('Should unlock an account', async () => {
+      const { accountController } = maker();
+      req.params = { idAccount: '1' };
+      const account = {
+        idAccount: 1,
+        idPeople: 123,
+        balance: 50,
+        dailyWithdrawalLimit: 150,
+        active: true,
+        accountType: 1,
+        createdAt: '1992-04-12',
+      };
+
+      jest.spyOn(AccountService, 'unlockAccount').mockResolvedValueOnce(account);
+
+      await accountController.unlockAccount(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(account);
+    });
+  });
+
   describe('getAccount', () => {
     test('Should return 400 if idAccount is invalid', async () => {
       const { accountController } = maker();

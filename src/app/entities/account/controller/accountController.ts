@@ -32,6 +32,18 @@ class AccountController implements InterfaceAccountController {
     }
   }
 
+  public async unlockAccount(req: express.Request, res: express.Response): Promise<void> {
+    try {
+      const { idAccount } = req.params;
+      if (!idAccount) throw new Error('Invalid Input');
+
+      const block = await AccountService.unlockAccount(Number(idAccount));
+      res.status(200).json(block);
+    } catch (e) {
+      res.status(400).json({ msg: e.message });
+    }
+  }
+
   public async getAccount(req: express.Request, res: express.Response): Promise<void> {
     try {
       const { idAccount } = req.params;

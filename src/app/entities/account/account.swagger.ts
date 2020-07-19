@@ -1,4 +1,6 @@
-import { createAccount, blockAccount, getAccount } from './controller/swagger';
+import {
+  createAccount, blockAccount, unlockAccount, getAccount,
+} from './controller/swagger';
 
 const account = {
   '/account': {
@@ -9,6 +11,9 @@ const account = {
   },
   '/account/{idAccount}/block': {
     post: blockAccount,
+  },
+  '/account/{idAccount}/unlock': {
+    post: unlockAccount,
   },
   accountDefinitions: {
     Account: {

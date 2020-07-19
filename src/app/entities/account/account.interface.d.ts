@@ -21,6 +21,7 @@ export interface AccountInput {
 export interface InterfaceAccountController {
   createAccount: (req: Request, res: Response) => Promise<void>;
   blockAccount: (req: Request, res: Response) => Promise<void>;
+  unlockAccount: (req: Request, res: Response) => Promise<void>;
   getAccount: (req: Request, res: Response) => Promise<void>;
 }
 
